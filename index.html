@@ -1202,7 +1202,8 @@
 
     <p class="team-role-header">Principal Investigator</p>
     <div class="pi-card">
-      <img src="https://cdn.vanderbilt.edu/t2-my/my-prd/wp-content/uploads/sites/2837/2018/06/Carrie-Jones.jpg" alt="Carrie K. Jones, Ph.D." loading="lazy" onerror="this.outerHTML='<div class=&quot;placeholder-img pi-fallback&quot;>👩‍🔬</div>'">
+      <!-- Tries carrie-jones.jpg in this repository first, then the Vanderbilt copy, then the placeholder -->
+      <img src="carrie-jones.jpg" data-alt-src="https://cdn.vanderbilt.edu/t2-my/my-prd/wp-content/uploads/sites/2837/2018/06/Carrie-Jones.jpg" referrerpolicy="no-referrer" alt="Carrie K. Jones, Ph.D." class="pi-photo" onerror="if (this.dataset.altSrc) { this.src = this.dataset.altSrc; this.removeAttribute('data-alt-src'); } else { this.outerHTML = '<div class=&quot;placeholder-img pi-fallback&quot;>👩‍🔬</div>'; }">
       <div class="pi-info">
         <h3>Carrie K. Jones, Ph.D.</h3>
         <p class="role">Director, In Vivo Pharmacology and Drug Development, Warren Center for Neuroscience Drug Discovery · Associate Professor, Pharmacology</p>
@@ -1748,6 +1749,15 @@
   });
   // stay unlocked for the rest of this browser session
   try { const saved = sessionStorage.getItem(UNLOCK_KEY); if (saved) unlockLinks(saved, true); } catch (e) {}
+
+  // PI photo: replace a stalled or blank image with the placeholder
+  function checkPiPhoto() {
+    const img = document.querySelector('.pi-card img.pi-photo');
+    if (img && !(img.complete && img.naturalWidth > 0)) {
+      img.outerHTML = '<div class="placeholder-img pi-fallback">👩‍🔬</div>';
+    }
+  }
+  setTimeout(checkPiPhoto, 10000);
 
   function closeBios(except) {
     document.querySelectorAll('.member-card.open').forEach(c => {
