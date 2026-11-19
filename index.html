@@ -1,0 +1,1916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jones Lab — Vanderbilt University</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C8A96E;
+    --gold-light: #E8D5A8;
+    --navy: #0F1B2D;
+    --navy-mid: #1A2D45;
+    --navy-light: #243B57;
+    --off-white: #F5F2EC;
+    --warm-white: #FAFAF7;
+    --text: #1C1C1C;
+    --text-muted: #6B6B6B;
+    --accent: #4A7C6F;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--warm-white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--navy);
+    border-bottom: 1px solid rgba(200,169,110,0.25);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--gold);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-toggle {
+    display: none; background: none; border: none; cursor: pointer;
+    color: var(--gold); font-size: 1.5rem; line-height: 1; padding: 0.25rem;
+  }
+
+  /* ── PAGE SYSTEM ── */
+  .page { display: none; min-height: 100vh; padding-top: 64px; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    min-height: calc(100vh - 64px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, rgba(200,169,110,0.08) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .hero-text {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 2rem 4rem 6rem 5rem;
+    position: relative; z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 4vw, 4rem);
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.65);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 0.75rem 1.75rem;
+    border-radius: 2px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .btn-primary:hover { background: var(--gold-light); }
+
+  .btn-outline {
+    background: transparent;
+    border: 1px solid rgba(200,169,110,0.5);
+    color: var(--gold);
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold);
+    background: rgba(200,169,110,0.1);
+  }
+
+  .hero-visual {
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    padding: 4rem;
+  }
+
+  .hero-brain {
+    width: 340px; height: 340px;
+    /*width: 340px; height: 340px;*/
+    position: relative;
+  }
+
+  .brain-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(200,169,110,0.2);
+    animation: spin linear infinite;
+  }
+
+  .brain-ring:nth-child(1) { inset: 0; animation-duration: 30s; }
+  .brain-ring:nth-child(2) { inset: 20px; animation-duration: 20s; animation-direction: reverse; border-color: rgba(74,124,111,0.2); }
+  .brain-ring:nth-child(3) { inset: 50px; animation-duration: 40s; }
+
+  .brain-ring::before {
+    content: '';
+    position: absolute;
+    top: -3px; left: 50%;
+    transform: translateX(-50%);
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .brain-center {
+    position: absolute;
+    inset: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,169,110,0.12), rgba(74,124,111,0.06));
+    border: 1px solid rgba(200,169,110,0.3);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .brain-icon {
+    font-size: 6rem;
+    /*font-size: 4rem;*/
+    opacity: 0.6;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-stats {
+    position: absolute; bottom: 3rem; right: 4rem;
+    display: flex; gap: 2.5rem;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* ── SECTION BASICS ── */
+  section { padding: 6rem 5rem; }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  h2.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3vw, 2.75rem);
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  h2.section-title.light { color: #fff; }
+
+  .divider {
+    width: 48px; height: 2px;
+    background: var(--gold);
+    margin-bottom: 3rem;
+  }
+
+  /* ── VISION SECTION ── */
+  .vision {
+    background: var(--off-white);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+
+  .vision-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.7;
+    color: var(--navy);
+    padding-left: 2rem;
+    border-left: 3px solid var(--gold);
+  }
+
+  .vision-body p {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── RESEARCH ── */
+  .research { background: var(--navy); }
+
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin-top: 3rem;
+  }
+
+  .research-card {
+    background: var(--navy-mid);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .research-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .research-card:hover { background: var(--navy-light); }
+  .research-card:hover::before { transform: scaleX(1); }
+
+  .research-card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--gold);
+    opacity: 0.6;
+    margin-bottom: 1rem;
+  }
+
+  .research-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .research-card p {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: rgba(255,255,255,0.5);
+  }
+
+  /* ── TEAM PAGE ── */
+  .page-header {
+    background: var(--navy);
+    padding: 2.5rem 5rem 2.75rem;
+  }
+
+  .page-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    color: #fff;
+    line-height: 1.1;
+  }
+
+  .page-header p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 1rem;
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  .team-section { padding: 3rem 5rem 5rem; }
+
+  .team-role-header {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(200,169,110,0.2);
+    margin-bottom: 2.5rem;
+  }
+
+  .pi-card {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    padding: 2.5rem;
+    background: var(--off-white);
+    border-left: 3px solid var(--gold);
+  }
+
+  .pi-card img, .member-card img {
+    width: 100%; aspect-ratio: 3/4;
+    object-fit: cover;
+    object-position: top;
+    background: #ddd;
+  }
+
+  .pi-card img { aspect-ratio: 1; }
+
+  .pi-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+  }
+
+  .pi-info .role {
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+  }
+
+  .pi-info p {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .contact-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; align-self: stretch; margin-top: 0.25rem; margin-bottom: 0.75rem; }
+  .contact-btn {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font-size: 0.66rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+    color: var(--navy); border: 1px solid var(--gold); padding: 0.4rem 0.7rem; border-radius: 999px;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .contact-btn:hover { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+  .contact-line {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .contact-line a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .member-card {
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.07);
+    overflow: visible;
+    position: relative;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+
+  .member-card:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+  }
+
+  .member-card .placeholder-img {
+    width: 100%; aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    color: rgba(200,169,110,0.3);
+    overflow: hidden;
+  }
+
+  .member-info {
+    padding: 1.25rem;
+  }
+
+  .member-info h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+  }
+
+  .member-info .role {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+
+  .member-info .fellowship {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 0.75rem;
+  }
+
+  .member-info .email {
+    font-size: 0.75rem;
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+  }
+
+  /* ── RESEARCH PAGE ── */
+  .research-page-section { padding: 3rem 5rem 5rem; }
+
+  .project-list { display: flex; flex-direction: column; gap: 4rem; margin-top: 3rem; }
+
+  .project-item {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    align-items: start;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .project-item:last-child { border-bottom: none; }
+
+  .project-visual {
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 4rem;
+    color: rgba(200,169,110,0.3);
+    border-left: 3px solid var(--gold);
+  }
+
+  .project-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .project-content p {
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--text-muted);
+  }
+
+  /* ── PUBLICATIONS PAGE ── */
+  .pubs-section { padding: 3rem 5rem 5rem; }
+
+  .pub-list { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2rem; }
+
+  .pub-item {
+    padding: 1.75rem 2rem;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.07);
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s;
+  }
+
+  .pub-item:hover { border-left-color: var(--gold); }
+
+  .pub-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+  }
+
+  .pub-authors {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+  }
+
+  /* timeline grouped by year */
+  .pub-list.timeline { display: block; }
+  .pub-year {
+    display: grid; grid-template-columns: 140px 1fr; gap: 2.5rem;
+    padding: 2rem 0; border-top: 1px solid rgba(200,169,110,0.25);
+  }
+  .pub-year:first-child { border-top: none; padding-top: 0; }
+  .pub-year-num {
+    font-family: 'Playfair Display', serif; font-size: 2.6rem; line-height: 1; color: var(--gold);
+    position: sticky; top: 88px; align-self: start;
+  }
+  .pub-year-count {
+    display: block; margin-top: 0.5rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted);
+  }
+  .pub-entry { position: relative; padding: 0 0 1.75rem 1.75rem; border-left: 1px solid rgba(200,169,110,0.35); }
+  .pub-entry:last-child { padding-bottom: 0; }
+  .pub-entry::before {
+    content: ''; position: absolute; left: -5px; top: 0.35rem; width: 9px; height: 9px; border-radius: 50%;
+    background: var(--warm-white); border: 2px solid var(--gold); transition: background 0.2s;
+  }
+  .pub-entry:hover::before { background: var(--gold); }
+  .pub-entry-journal { font-size: 0.66rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.35rem; }
+  .pub-entry-title { font-family: 'Playfair Display', serif; font-size: 1.08rem; line-height: 1.4; color: var(--navy); margin-bottom: 0.35rem; }
+  .pub-entry-title a { color: inherit; text-decoration: none; }
+  .pub-entry-title a:hover { color: var(--accent); }
+
+  .pub-title a { color: inherit; text-decoration: none; }
+  .pub-title a:hover { color: var(--accent); }
+  .pub-authors strong { color: var(--navy); font-weight: 500; }
+  .pub-more-wrap { text-align: center; margin-top: 2rem; }
+  .pub-more-wrap .apply-btn { margin: 0; background: transparent; cursor: pointer; font-family: inherit; }
+  .pub-status { font-size: 0.75rem; letter-spacing: 0.08em; color: var(--text-muted); text-align: center; margin-top: 1.25rem; }
+  .pub-status a { color: var(--accent); }
+
+  /* skeleton placeholders (loading publications, locked links) */
+  .sk-line { height: 10px; border-radius: 3px; background: #E4E1DA; margin-bottom: 0.6rem; }
+  .sk-line.w90 { width: 90%; } .sk-line.w60 { width: 60%; } .sk-line.w40 { width: 40%; }
+  .pub-skeleton .sk-line { animation: skpulse 1.4s ease-in-out infinite; }
+  @keyframes skpulse { 50% { opacity: 0.45; } }
+
+  .pub-journal {
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  /* ── JOIN PAGE ── */
+  .join-section { padding: 3rem 5rem 5rem; }
+
+  .join-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 0;
+  }
+
+  .join-text p {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .positions-list { list-style: none; margin-top: 2rem; }
+
+  .positions-list li {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    display: flex; align-items: flex-start; gap: 1rem;
+  }
+
+  .pos-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gold);
+    margin-top: 6px; flex-shrink: 0;
+  }
+
+  .pos-title {
+    font-weight: 500;
+    color: var(--navy);
+    margin-bottom: 0.25rem;
+  }
+
+  .pos-body { flex: 1; }
+
+  .apply-btn {
+    flex-shrink: 0; align-self: center; margin-left: 1.5rem;
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+    color: var(--navy); border: 1px solid var(--gold); padding: 0.5rem 1.1rem; border-radius: 999px;
+    white-space: nowrap; transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .apply-btn:hover { background: var(--navy); border-color: var(--navy); color: #fff; }
+  .apply-btn .icon { font-size: 0.8rem; }
+
+  .apply-closed {
+    flex-shrink: 0; align-self: center; margin-left: 1.5rem;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem;
+  }
+  .apply-closed .apply-btn {
+    margin-left: 0; align-self: flex-end; color: #A8A8A8; border-color: #D4D4D4; cursor: not-allowed;
+  }
+  .apply-closed .apply-btn:hover { background: transparent; color: #A8A8A8; border-color: #D4D4D4; }
+  .apply-closed-note { font-size: 0.7rem; font-style: italic; color: #A8A8A8; white-space: nowrap; }
+
+  .pos-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .contact-box {
+    background: var(--navy);
+    padding: 2.5rem;
+    color: #fff;
+    height: fit-content;
+  }
+
+  .contact-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-detail {
+    display: flex; gap: 1rem; margin-bottom: 1.25rem;
+    align-items: flex-start;
+  }
+
+  .contact-icon { font-size: 1.2rem; margin-top: 2px; }
+
+  .contact-detail-text { font-size: 0.88rem; line-height: 1.6; color: rgba(255,255,255,0.7); }
+
+  .contact-detail-text a { color: var(--gold); text-decoration: none; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    border-top: 1px solid rgba(200,169,110,0.2);
+    padding: 3rem 5rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--gold);
+  }
+
+  .footer-text {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+  }
+
+  .footer-links {
+    display: flex; gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+    cursor: pointer;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── INTRO ANIM ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .anim { opacity: 0; animation: fadeUp 0.6s ease forwards; }
+  .anim-1 { animation-delay: 0.1s; }
+  .anim-2 { animation-delay: 0.3s; }
+  .anim-3 { animation-delay: 0.5s; }
+  .anim-4 { animation-delay: 0.7s; }
+
+  /* ── BIO DRAWER ── */
+  .member-card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* info fills the card so the About row always sits at the bottom */
+  .member-card .member-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .member-card .bio-toggle { margin-top: auto; align-self: stretch; }
+  /* email buttons sit just above About, so they line up across cards too */
+  .member-card .contact-btns { margin-top: auto; }
+  .member-card .contact-btns + .bio-toggle { margin-top: 0; }  .member-card .member-info > :nth-last-child(2) { margin-bottom: 0.75rem; }
+
+  .bio-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    user-select: none;
+  }
+
+  .bio-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-style: normal;
+    font-size: 0.8rem;
+  }
+
+  .bio-drawer {
+    display: none;
+    position: absolute;
+    left: 105%;
+    top: 0;
+    bottom: 0;            /* same height as the card */
+    overflow-y: auto;     /* long bios scroll inside */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(200,169,110,0.5) transparent;
+    width: 360px;
+    background: #fff;
+    border: 1px solid rgba(200,169,110,0.3);
+    border-left: 3px solid var(--gold);
+    box-shadow: 4px 8px 24px rgba(0,0,0,0.12);
+    padding: 1.5rem;
+    z-index: 50;
+  }
+
+  .bio-drawer.open {
+    display: block;
+  }
+
+  .bio-drawer p {
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .bio-drawer p:last-child { margin-bottom: 0; }
+
+  .bio-drawer .bio-interests {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(200,169,110,0.15);
+  }
+
+  .bio-drawer .bio-interests-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.4rem;
+  }
+
+  .bio-drawer .bio-interests p {
+    margin-bottom: 0;
+  }
+
+  .member-card.open .bio-arrow {
+    transform: rotate(180deg);
+  }
+
+  .member-card.open {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    z-index: 60;
+  }
+
+  /* drawer opens to the left when there's no room on the right */
+  .bio-drawer.flip { left: auto; right: 105%; border-left: 1px solid rgba(200,169,110,0.3); border-right: 3px solid var(--gold); }
+
+  /* ── LAB LINKS PAGE ── */
+  .links-section { padding: 2.5rem 5rem 3rem; }
+  .links-group { margin-bottom: 2.25rem; }
+  .links-group .team-role-header { margin-bottom: 1.5rem; }
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .link-card {
+    display: flex; gap: 1.1rem; align-items: flex-start;
+    padding: 1.5rem 1.6rem;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.07);
+    border-left: 3px solid transparent;
+    text-decoration: none;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  }
+  .link-card:hover { border-left-color: var(--gold); box-shadow: 0 8px 24px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .link-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--navy); color: var(--gold); font-size: 1.2rem;
+  }
+  .link-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--navy); margin-bottom: 0.3rem; }
+  .link-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.6; }
+  /* ── LOCKED LAB LINKS ── */
+  .links-locked { position: relative; min-height: 420px; }
+  .links-skeleton { filter: grayscale(1) blur(1.5px); opacity: 0.45; pointer-events: none; user-select: none; }
+  .links-skeleton .team-role-header { background: linear-gradient(#E4E1DA,#E4E1DA) left center / 140px 10px no-repeat; }
+  .link-card.skeleton { min-height: 120px; }
+  .link-card.skeleton .link-icon { background: #CFCAC0; }
+  .link-card.skeleton > div:last-child { flex: 1; padding-top: 0.3rem; }
+  .lock-card {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: min(420px, 100%); background: #fff; text-align: center;
+    border: 1px solid rgba(0,0,0,0.07); border-top: 3px solid var(--gold);
+    box-shadow: 0 16px 48px rgba(15,27,45,0.15); padding: 2.25rem 2rem 1.75rem;
+  }
+  .lock-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+  .lock-card h3 { font-family: 'Playfair Display', serif; color: var(--navy); font-size: 1.35rem; margin-bottom: 0.4rem; }
+  .lock-card > p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.25rem; }
+  .lock-row { display: flex; gap: 0.5rem; }
+  .lock-row input {
+    flex: 1; min-width: 0; font-family: inherit; font-size: 0.9rem;
+    padding: 0.55rem 0.9rem; border: 1px solid rgba(0,0,0,0.15); border-radius: 999px; outline: none;
+  }
+  .lock-row input:focus { border-color: var(--gold); }
+  .lock-row .apply-btn { margin: 0; background: transparent; cursor: pointer; font-family: inherit; }
+  .lock-error { min-height: 1.2em; margin-top: 0.75rem; font-size: 0.78rem; color: #A94442; }
+  .lock-card.shake { animation: shake 0.35s; }
+  @keyframes shake { 25% { transform: translate(-52%, -50%); } 75% { transform: translate(-48%, -50%); } }
+  .lock-again { text-align: right; margin-top: 1rem; font-size: 0.75rem; }
+  .lock-again a { color: var(--text-muted); cursor: pointer; }
+  .lock-again a:hover { color: var(--navy); }
+
+  .link-type {
+    display: inline-block; margin-top: 0.6rem;
+    font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
+  }
+
+  /* ── PIPELINE PAGE ── */
+  .pipeline-section { padding: 2.5rem 5rem 4rem; }
+  .pipeline-intro { font-size: 1rem; line-height: 1.75; color: var(--text-muted); max-width: 820px; margin-bottom: 1rem; }
+  .pipeline-intro + .pipe-wrap { margin-top: 0.5rem; }
+  .pipe-wrap { position: relative; padding-top: 2rem; }
+  .pipe-flag {
+    position: absolute; top: 0; height: 2rem; pointer-events: none;
+  }
+  .pipe-flag span {
+    position: absolute; bottom: 0.25rem; left: 50%; transform: translateX(-50%);
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--navy); white-space: nowrap;
+  }
+  .pipe-row { display: flex; gap: 4px; padding: 0.5rem 1rem 1rem; }
+  .chev {
+    flex: 1; min-height: 96px;
+    background: var(--navy-mid); color: #fff;
+    display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 0 2.25rem; font-weight: 500; font-size: 0.9rem; line-height: 1.3;
+    cursor: pointer; outline: none; transition: background 0.2s, transform 0.2s;
+    clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 50%, calc(100% - 26px) 100%, 0 100%, 26px 50%);
+  }
+  .chev:first-child { clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 50%, calc(100% - 26px) 100%, 0 100%); }
+  .chev:hover, .chev:focus-visible, .chev.active { background: var(--navy-light); transform: translateY(-3px); }
+  .chev.lab { background: var(--gold); color: var(--navy); }
+  .chev.lab:hover, .chev.lab:focus-visible, .chev.lab.active { background: var(--gold-light); }
+  .chev.clinical { background: #5F7F9F; }
+  .pipe-panel { margin-top: 1rem; background: var(--off-white); border-left: 3px solid var(--gold); padding: 2rem 2.25rem; min-height: 170px; }
+  .pipe-panel-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 0.5rem; }
+  .pipe-panel-body { font-size: 0.92rem; line-height: 1.75; color: var(--text-muted); }
+  .pipe-panel ul { margin-top: 0.75rem; padding-left: 1.1rem; font-size: 0.88rem; line-height: 1.7; color: var(--text-muted); }
+  .lab-tag {
+    display: inline-block; margin-left: 0.5rem; vertical-align: middle;
+    font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+    background: var(--gold); color: var(--navy); padding: 0.2rem 0.55rem;
+  }
+  .our-work { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; padding: 2rem 5rem 6rem; }
+  .our-work p { font-size: 0.95rem; line-height: 1.85; color: var(--text-muted); margin-bottom: 1rem; }
+  .work-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .work-card { background: var(--navy-mid); padding: 1.5rem; }
+  .work-card h4 { font-family: 'Playfair Display', serif; color: #fff; margin-bottom: 0.5rem; font-size: 1rem; }
+  .our-work .work-card p { font-size: 0.82rem; line-height: 1.6; color: rgba(255,255,255,0.55); margin: 0; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    section, .team-section, .research-page-section, .pubs-section, .join-section { padding: 3rem 1.5rem; }
+    nav { padding: 0 1.5rem; }
+    .nav-toggle { display: block; }
+    .nav-links {
+      display: none; position: absolute; top: 64px; left: 0; right: 0;
+      flex-direction: column; gap: 0; background: var(--navy);
+      border-bottom: 1px solid rgba(200,169,110,0.25);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links a { display: block; padding: 1rem 1.5rem; font-size: 0.8rem; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { display: none; }
+    .hero-text { padding: 4rem 2rem; }
+    .vision { grid-template-columns: 1fr; gap: 2rem; }
+    .research-grid { grid-template-columns: 1fr; }
+    .pi-card { grid-template-columns: 1fr; }
+    .project-item { grid-template-columns: 1fr; }
+    .join-grid { grid-template-columns: 1fr; }
+    .page-header { padding: 2rem 1.5rem 2rem; }
+    footer { flex-direction: column; gap: 1.5rem; text-align: center; padding: 2rem 1.5rem; }
+    .links-section { padding: 2rem 1.5rem; }
+    .pipeline-section { padding: 2rem 1.5rem 2rem; }
+    .lock-row { flex-direction: column; }
+    .pub-year { grid-template-columns: 1fr; gap: 1rem; }
+    .pub-year-num { position: static; font-size: 2.1rem; }
+    .pipe-row { flex-direction: column; padding: 0; }
+    .chev, .chev:first-child { clip-path: none; min-height: 60px; }
+    .pipe-flag { display: none; }
+    .pipe-wrap { padding-top: 0; }
+    .our-work { grid-template-columns: 1fr; padding: 1rem 1.5rem 3rem; }
+    .work-cards { grid-template-columns: 1fr; }
+    .positions-list li { flex-wrap: wrap; }
+    .apply-btn, .apply-closed { margin-left: 24px; margin-top: 0.5rem; align-self: flex-start; }
+    .apply-closed { align-items: flex-start; } .apply-closed .apply-btn { align-self: flex-start; }
+    .bio-drawer, .bio-drawer.flip { position: static; width: auto; box-shadow: none; border: none; border-top: 1px solid rgba(200,169,110,0.3); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">Carrie K. Jones Lab</a>
+  <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')">Home</a></li>
+    <li><a onclick="showPage('research')">Research</a></li>
+    <li><a onclick="showPage('pipeline')">Pipeline</a></li>
+    <li><a onclick="showPage('team')">The Team</a></li>
+    <li><a onclick="showPage('publications')">Publications</a></li>
+    <li><a onclick="showPage('join')">Join</a></li>
+    <li><a onclick="showPage('links')">Lab Links</a></li>
+  </ul>
+</nav>
+
+<!-- ════ HOME PAGE ════ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <div class="hero-text">
+      <p class="hero-eyebrow anim anim-1">Vanderbilt University · Department of Pharmacology</p>
+      <h1 class="hero-title anim anim-2">
+        Developing the <em>next generation</em> of treatments for neurological &amp; neuropsychiatric diseases
+      </h1>
+      <p class="hero-desc anim anim-3">
+        We use cutting-edge <i>in vivo</i> pharmacology techniques to understand how muscarinic acetylcholine and metabotropic glutamate receptors modulate disease states.
+      </p>
+      <div class="hero-ctas anim anim-4">
+        <span class="btn btn-primary" onclick="showPage('research')">Our Research</span>
+        <span class="btn btn-outline" onclick="showPage('join')">Join the Lab</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-brain">
+        <div class="brain-ring"></div>
+        <div class="brain-ring"></div>
+        <div class="brain-ring"></div>
+        <div class="brain-center">
+          <div class="brain-icon">🧠</div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-num">150+</span>
+          <span class="stat-label">Publications</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">15+</span>
+          <span class="stat-label">Lab Members</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num">3+</span>
+          <span class="stat-label">Active Grants</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vision">
+    <div>
+      <p class="section-label">Our Vision</p>
+      <h2 class="section-title">Understanding muscarinic acetylcholine and metabotropic glutamate receptors in the brain</h2>
+      <div class="divider"></div>
+      <blockquote class="vision-quote">
+        "Our research seeks to characterize novel ligands and assess their <i>in vivo</i> efficacy."
+      </blockquote>
+    </div>
+    <div class="vision-body">
+      <p>The acetylcholine muscarinic receptor (mAChR) and metabotropic glutamatergic receptor (mGluR) families represent important therapeutic targets for numerous clinical indications, from muscarinic antagonists for chronic obstructive pulmonary disease, to tolterodine and trospium for overactive bladder and scopolamine for motion sickness.</p>
+      <p>By understanding of the fundamental biology of these receptor classes and tailoring the pharmacological properties of novel molecular entities, we can develop muscarinic and metabotropic receptor-based treatments for neurological and psychiatric diseases including schizophrenia, Parkinson's Disease, Alzheimer's Disease, and addiction. A new array of clinical programs are currently focused on M<sub>1</sub>/M<sub>4</sub> orthosteric agonists and positive allosteric modulators, with multiple compounds entering clinical trials.</p>
+      <p>Our group provides the <i>in vivo</i> characterization of novel mGluR and mAChR subtype-specific ligands for the ongoing <strong>development of novel hit and lead molecules and preclinical efficacy for potential clinical candidates for CNS disorders.</strong></p>
+    </div>
+  </section>
+
+  <section class="research">
+    <p class="section-label" style="color:var(--gold)">Research</p>
+    <h2 class="section-title light">Four primary disease areas</h2>
+    <div class="divider"></div>
+    <div class="research-grid">
+      <div class="research-card">
+        <p class="research-card-num">01</p>
+        <h3>Schizophrenia</h3>
+        <p>This debilitating psychiatric conditions affects 3 million adults in the U.S. While most antipsychotics target dopamine D<sub>2</sub> receptors, leading to adverse side effects, muscarinic-targeted modulation engage brain circuits in a more selective manner.</p>
+      </div>
+      <div class="research-card">
+        <p class="research-card-num">02</p>
+        <h3>Alzheimer's Disease</h3>
+        <p>With no known cure, there is an urgent need to develop efficacious treatments for memory loss in the 6.9 million people over the age of 65 who suffer from this disease.</p>
+      </div>
+      <div class="research-card">
+        <p class="research-card-num">03</p>
+        <h3>Depression</h3>
+        <p>Preclinical evidence suggests muscarinic antagonists may reduce depression symptomology.</p>
+      </div>
+      <div class="research-card">
+        <p class="research-card-num">04</p>
+        <h3>Substance Use Disorders</h3>
+        <p>Over 26 million people worldwide suffer from opioid use disorder. Our work seeks to identify and characterize novel target mechanisms for the prevention of opioid misuse.</p>
+      </div>
+    </div>
+    <div style="margin-top:2.5rem">
+      <span class="btn btn-outline" onclick="showPage('research')">View All Projects</span>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Jones Lab</div>
+    <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
+    <div class="footer-links">
+      <a onclick="showPage('research')">Research</a>
+      <a onclick="showPage('team')">Team</a>
+      <a onclick="showPage('publications')">Publications</a>
+      <a onclick="showPage('join')">Join</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ════ RESEARCH PAGE ════ -->
+<div class="page" id="page-research">
+  <div class="page-header">
+    <h1>Research Projects</h1>
+    <p>These projects aim to extend our understanding of the circuit and molecular mechanisms of the muscarinic acetylcholine receptor system to advance novel therapies for neuropsychiatric and neurological disease.</p>
+  </div>
+
+  <div class="research-page-section">
+    <div class="project-list">
+
+      <div class="project-item">
+        <div class="project-visual">🔬</div>
+        <div class="project-content">
+          <h3>Understanding the Role of the M<sub>5</sub>-receptor Biology in the Mesocorticolimbic Reward Circuitry</h3>
+          <p>The muscarinic subtype 5 receptor (M<sub>5</sub>) is modulator of opioid rewarding effects and can  decrease in symptoms of morphine withdrawal without impacting pain-blocking effects. Our prior work suggests that the M<sub>5</sub>-receptor is localized within the mesocorticolimbic reward circuitry. In rodent models, highly selective M<sub>5</sub>-receptor NAMs and an orthosteric inhibitor can block the rewarding and reinforcing effects of μ-opioid agonists without affecting opioid-induced analgesia, prevent the acquisition of oxycodone self-administration, and the reinstatement of μ-opioid agonist drug seeking behaviors. We aim to how the M<sub>5</sub>-receptor regulates dopaminergic transmission and optimize the pharmacological properties of M<sub>5</sub>-receptor ligands.</p>
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-visual">💊</div>
+        <div class="project-content">
+          <h3>Elucidating the Neural Consequences of Chronic Cocaine Abuse</h3>
+          <p>An inability to extinguish previously formed associations between cocaine and the cues that predict its availability is thought to contribute to pathological drug seeking, even in the face of negative consequences. Using cocaine self-administration in mice, we aim to understand how circuits projecting to medium spiny neurons (D1 and D2) are dysregulated on the circuit and transcriptional level to drive pathological drug seeking and attempt to reverse these maladaptive seeking behaviors with optogenetic approaches and viral mediated gene transfer.</p>
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-visual">🧬</div>
+        <div class="project-content">
+          <h3>Cross-talk Between the Epigenome and Neural Circuit Activity in Drug Addiction</h3>
+          <p>Learning about drug rewards and predictive cues is a complex process controlled by a computational network of neural connections interacting with transcriptional and molecular mechanisms within each cell to precisely guide behavior. The interplay between rapid, temporally specific neuronal activation, and longer-term changes in transcription is of critical importance. By combining cre-driver lines with techniques like RNA sequencing, viral mediated gene transfer and chromatin immunoprecipitation we aim for a comprehensive understanding of the pathway and cell-type specific circuits controlling these behaviors.</p>
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-visual">⚧</div>
+        <div class="project-content">
+          <h3>Sex Differences in Cocaine Effects on Reward Circuits</h3>
+          <p>Females are more likely to become addicted to drugs and relapse at higher rates than males; however, the underlying neural mechanisms remain unclear. Our previous work shows that during estrus, when circulating ovarian hormone levels are high, there is a 3-fold increase in the ability of cocaine to inhibit the dopamine transporter as compared to male and diestrus females. Our work focuses on understanding how ovarian hormones influence neural signaling within the brain and how this contributes to addiction vulnerability in females.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Jones Lab</div>
+    <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
+    <div class="footer-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('team')">Team</a>
+      <a onclick="showPage('publications')">Publications</a>
+      <a onclick="showPage('join')">Join</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ════ PIPELINE PAGE ════ -->
+<div class="page" id="page-pipeline">
+  <div class="pipeline-section">
+    <p class="section-label">From Target to Treatment</p>
+    <h2 class="section-title">The Drug Discovery Pipeline</h2>
+    <p class="pipeline-intro">Bringing a new medicine from the lab to patients typically takes 10 to 15 years. The journey moves through a series of stages, each designed to answer a specific question: Is this biological target worth pursuing? Can we find a molecule that acts on it? Can that molecule be refined into something drug-like? Does it work, and is it safe, in living systems? And finally, does it help patients?</p>
+    <p class="pipeline-intro">Most candidates fall away along the way. Thousands of compounds may be screened for every one that reaches the clinic, and roughly 9 in 10 drugs that enter human trials are never approved. Rigorous preclinical testing, our focus, is critical for identifying the molecules most likely to succeed before they reach patients.</p>
+    <div class="pipe-wrap" id="pipe-wrap">
+      <div class="pipe-flag" id="pipe-flag"><span>▼ The Work We Do</span></div>
+      <div class="pipe-row" id="pipe-row"></div>
+    </div>
+    <div class="pipe-panel" id="pipe-panel"></div>
+  </div>
+
+  <div class="our-work">
+    <div>
+      <p class="section-label">Our Role</p>
+      <h2 class="section-title">Our Work in Preclinical Development</h2>
+      <p>[Placeholder] The Jones Lab works at the preclinical development stage. After medicinal chemists have optimized a compound, we test it in living systems to answer one question: does this molecule do what we hope in the brain, and is it safe enough to move toward the clinic?</p>
+      <p>[Placeholder] Working with the Warren Center for Neuroscience Drug Discovery, we test novel mAChR and mGluR subtype-selective ligands in rodent models relevant to schizophrenia, Alzheimer's disease, depression, and substance use disorders. Our data help decide which hit and lead molecules move forward as clinical candidates.</p>
+    </div>
+    <div class="work-cards">
+      <div class="work-card"><h4>Behavioral Pharmacology</h4><p>[Placeholder] Rodent models of cognition, psychosis-like behavior, reward, and drug self-administration.</p></div>
+      <div class="work-card"><h4>Target Engagement</h4><p>[Placeholder] Confirming that compounds reach and act on the intended receptor subtype <i>in vivo</i>.</p></div>
+      <div class="work-card"><h4>PK / PD Relationships</h4><p>[Placeholder] Relating drug exposure in brain and plasma to behavioral and physiological effects.</p></div>
+      <div class="work-card"><h4>Safety &amp; Tolerability</h4><p>[Placeholder] Screening for motor, cholinergic, and other adverse effects that could limit clinical use.</p></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Jones Lab</div>
+    <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
+    <div class="footer-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('research')">Research</a>
+      <a onclick="showPage('team')">Team</a>
+      <a onclick="showPage('join')">Join</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ════ TEAM PAGE ════ -->
+<div class="page" id="page-team">
+  <div class="page-header">
+    <h1>The Team</h1>
+    <p>A multidisciplinary, leading group of scientists focused on drug development for neurological and neuropsychiatric disease.</p>
+  </div>
+
+  <div class="team-section">
+
+    <p class="team-role-header">Principal Investigator</p>
+    <div class="pi-card">
+      <div class="placeholder-img" style="background:linear-gradient(135deg,#1A2D45,#243B57);display:flex;align-items:center;justify-content:center;font-size:4rem;color:rgba(200,169,110,0.3);aspect-ratio:1;width:100%">👩‍🔬</div>
+      <div class="pi-info">
+        <h3>Carrie K. Jones, Ph.D.</h3>
+        <p class="role">Director, In Vivo Pharmacology and Drug Development, Warren Center for Neuroscience Drug Discovery · Associate Professor, Pharmacology</p>
+        <p>Dr. Jones received her Ph.D. at Indiana University School of Medicine under Dr. Harlan Shannon, a senior scientist at Eli Lilly and Company. For her graduate research, she determined a critical role for the muscarinic cholinergic system in the regulation of normal sensory information processing functions known to be disrupted in individuals with schizophrenia. Prior to joining the faculty at Vanderbilt, she also served as an in vivo pharmacologist at Eli Lilly and Company on several scientific teams focused on the development of novel therapeutics for schizophrenia and chronic pain. Her work contributed to four clinical candidates, including the M<sub>1</sub>/M<sub>4</sub> preferring muscarinic receptor agonist Xanomenline for schizophrenia, the balanced serotonergic and noradrenergic reuptake inhibitor duloxetine, the mixed AMPA/kaniate receptor antagonist LY293558, and an iGluR5 antagonist for chronic pain. Her characterization of duloxetine in preclinical models of inflammatory and persistent pain directly contributed to the ongoing drug discovery effort for this molecule that culminated with the approval of Cymbalta® (duloxetine HCl) for the treatment of chronic pain and depression associated with painful diabetic neuropathy and fibromyalgia.</p>
+        <p>She is the founding Director of In Vivo and Translational Pharmacology for the Warren Center for Neuroscience Drug Discovery, and current Senior Director of In Vivo Pharmacology and Drug Development. Her work seeks to understand the role of different muscarinic acetylcholine receptor subtypes in the modulation of neuronal circuitry and behaviors relevant to schizophrenia, Alzheimer’s disease, and addiction.</p>
+        <div class="contact-btns"><a class="contact-btn" href="mailto:carrie.jones@vanderbilt.edu" title="carrie.jones@vanderbilt.edu" onclick="event.stopPropagation()">✉ Email</a><a class="contact-btn" href="https://scholar.google.com/citations?user=YeOvyrUAAAAJ&amp;hl=en" target="_blank" rel="noopener" onclick="event.stopPropagation()">🎓 Scholar</a></div>
+      </div>
+    </div>
+
+    <p class="team-role-header">Senior Staff</p>
+    <div class="members-grid">
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🔬</div>
+        <div class="member-info">
+          <h4>Michael Bubser, Ph.D.</h4>
+          <div class="role">Research Assistant Professor</div>
+          <!-- <div class="fellowship">Brain &amp; Behavior Research Foundation Young Investigator · K99/R00 Awardee</div> -->
+          <div class="contact-btns"><a class="contact-btn" href="mailto:michael.bubser@vanderbilt.edu" title="michael.bubser@vanderbilt.edu" onclick="event.stopPropagation()">✉ Email</a></div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Michael received their degree in [field] from [institution], where they studied [research topic].</p>
+          <p>[Placeholder] In the Jones Lab, Michael works on [project description].</p>
+        </div>
+      </div>
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🧪</div>
+        <div class="member-info">
+          <h4>Analisa D. Thompson-Gray, Ph.D.</h4>
+          <div class="role">Discovery Scientist</div>
+          <!-- <div class="fellowship">NIDA Postdoctoral Fellow</div> -->
+          <div class="contact-btns"><a class="contact-btn" href="mailto:analisa.d.thompson.gray@vanderbilt.edu" title="analisa.d.thompson.gray@vanderbilt.edu" onclick="event.stopPropagation()">✉ Email</a></div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Analisa received their degree in [field] from [institution], where they studied [research topic].</p>
+          <p>[Placeholder] In the Jones Lab, Analisa works on [project description].</p>
+        </div>
+      </div>
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🧬</div>
+        <div class="member-info">
+          <h4>Katie Patterson, B.S.</h4>
+          <div class="role">Research Assistant II</div>
+          <!-- <div class="fellowship">NIDA Postdoctoral Fellow</div> -->
+          <div class="contact-btns"><a class="contact-btn" href="mailto:kathleen.m.patterson@vanderbilt.edu" title="kathleen.m.patterson@vanderbilt.edu" onclick="event.stopPropagation()">✉ Email</a></div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Katie received their degree in [field] from [institution], where they studied [research topic].</p>
+          <p>[Placeholder] In the Jones Lab, Katie works on [project description].</p>
+        </div>
+      </div>
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🧠</div>
+        <div class="member-info">
+          <h4>Kevin Erreger, Ph.D.</h4>
+          <div class="role">[Title]</div>
+          <div class="contact-btns"><a class="contact-btn" href="mailto:kevin.erreger@vanderbilt.edu" title="kevin.erreger@vanderbilt.edu" onclick="event.stopPropagation()">✉ Email</a></div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Kevin received their degree in [field] from [institution], where they studied [research topic].</p>
+          <p>[Placeholder] In the Jones Lab, Kevin works on [project description].</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="team-role-header">Graduate Students</p>
+    <div class="members-grid">
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🎓</div>
+        <div class="member-info">
+          <h4>Zander Maitland, Ph.D. Student</h4>
+          <div class="role">Department of Pharmacology</div>
+          <div class="fellowship">NIDA Predoctoral Fellow</div>
+          <div class="contact-btns"><a class="contact-btn" href="mailto:alexander.d.maitland@vanderbilt.edu" title="alexander.d.maitland@vanderbilt.edu" onclick="event.stopPropagation()">✉ Email</a><a class="contact-btn" href="https://scholar.google.com/citations?user=FGIKboQAAAAJ&amp;hl=en" target="_blank" rel="noopener" onclick="event.stopPropagation()">🎓 Scholar</a></div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>Zander majored in Neuroscience at the University of Michigan and conducted research in the lab of Dr. Carrie R. Ferrario, where he studied the interplay of pharmacokinetics and sex-specific factors in the development of cocaine addiction in rats.</p>
+          <p>As a post-bac at NIDA in the lab of Dr. Michael H. Baumann, he characterized the preclinical pharmacology of emerging synthetic opioids and assess potential psychedelic and entactogenic medications for treating neuropsychiatric disorders.</p>
+          <p>His dissertation research focuses on understanding the role of muscarinic acetylcholine receptors in modulating reward circuitry and addiction-related behaviors. His work combines <i>in vivo</i> pharmacology, behavioral neuroscience, and machine-learning approaches.</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="team-role-header">Research Assistants</p>
+    <div class="members-grid">
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🔬</div>
+        <div class="member-info">
+          <h4>Maya Anderson</h4>
+          <div class="role">Research Assistant</div>
+          <!-- <div class="fellowship">Brain &amp; Behavior Research Foundation Young Investigator · K99/R00 Awardee</div> -->
+          <div class="contact-btns"><a class="contact-btn" href="mailto:kennedi.m.anderson@vanderbilt.edu" title="kennedi.m.anderson@vanderbilt.edu" onclick="event.stopPropagation()">✉ Email</a></div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Maya received their degree in [field] from [institution], where they studied [research topic].</p>
+          <p>[Placeholder] In the Jones Lab, Maya works on [project description].</p>
+        </div>
+      </div>
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">💫</div>
+        <div class="member-info">
+          <h4>Julon White</h4>
+          <div class="role">Research Assistant</div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Julon received their degree in [field] from [institution], where they studied [research topic].</p>
+          <p>[Placeholder] In the Jones Lab, Julon works on [project description].</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="team-role-header">Undergraduate Researchers</p>
+    <div class="members-grid">
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🌟</div>
+        <div class="member-info">
+          <h4>Dominick Kassau</h4>
+          <div class="role">Undergraduate Researcher</div>
+          <div class="fellowship">ASPET SURF Scholar</div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Dominick received their degree in [field] from [institution], where they studied [research topic].</p>
+          <p>[Placeholder] In the Jones Lab, Dominick works on [project description].</p>
+        </div>
+      </div>
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">⭐</div>
+        <div class="member-info">
+          <h4>Justin Morris</h4>
+          <div class="role">Undergraduate Researcher</div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Justin received their degree in [field] from [institution], where they studied [research topic].</p>
+          <p>[Placeholder] In the Jones Lab, Justin works on [project description].</p>
+        </div>
+      </div>
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🔭</div>
+        <div class="member-info">
+          <h4>Benton Nguyen</h4>
+          <div class="role">Undergraduate Researcher</div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Benton received their degree in [field] from [institution], where they studied [research topic].</p>
+          <p>[Placeholder] In the Jones Lab, Benton works on [project description].</p>
+        </div>
+      </div>
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🌸</div>
+        <div class="member-info">
+          <h4>Bethany Atenidegbe</h4>
+          <div class="role">Undergraduate Researcher</div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Bethany received their degree in [field] from [institution], where they studied [research topic].</p>
+          <p>[Placeholder] In the Jones Lab, Bethany works on [project description].</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="team-role-header">Alumni</p>
+    <div class="members-grid">
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🌱</div>
+        <div class="member-info">
+          <h4>Niall Dundee</h4>
+          <div class="role">Undergraduate Researcher</div>
+          <div class="fellowship">Now: [current position]</div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Niall worked in the Jones Lab on [project description].</p>
+          <p>[Placeholder] Niall is now [current position] at [institution].</p>
+        </div>
+      </div>
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🌙</div>
+        <div class="member-info">
+          <h4>Armann Gudmundsson</h4>
+          <div class="role">Undergraduate Researcher</div>
+          <div class="fellowship">Now: [current position]</div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Armann worked in the Jones Lab on [project description].</p>
+          <p>[Placeholder] Armann is now [current position] at [institution].</p>
+        </div>
+      </div>
+      <div class="member-card" onclick="toggleBio(this)">
+        <div class="placeholder-img">🏆</div>
+        <div class="member-info">
+          <h4>Sindur Patel</h4>
+          <div class="role">Undergraduate Researcher</div>
+          <div class="fellowship">Now: [current position]</div>
+          <div class="bio-toggle">
+            About <span class="bio-arrow">›</span>
+          </div>
+        </div>
+        <div class="bio-drawer">
+          <p>[Placeholder] Sindur worked in the Jones Lab on [project description].</p>
+          <p>[Placeholder] Sindur is now [current position] at [institution].</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Jones Lab</div>
+    <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
+    <div class="footer-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('research')">Research</a>
+      <a onclick="showPage('publications')">Publications</a>
+      <a onclick="showPage('join')">Join</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ════ PUBLICATIONS PAGE ════ -->
+<div class="page" id="page-publications">
+  <div class="page-header">
+    <h1>Recent Publications</h1>
+    <p>Our most recent work, updated automatically from PubMed.</p>
+  </div>
+
+  <div class="pubs-section">
+    <div class="pub-list" id="pub-list" aria-live="polite">
+      <div class="pub-item pub-skeleton"><div class="sk-line w90"></div><div class="sk-line w60"></div><div class="sk-line w40"></div></div>
+      <div class="pub-item pub-skeleton"><div class="sk-line w90"></div><div class="sk-line w60"></div><div class="sk-line w40"></div></div>
+      <div class="pub-item pub-skeleton"><div class="sk-line w90"></div><div class="sk-line w60"></div><div class="sk-line w40"></div></div>
+    </div>
+    <noscript><p class="pub-status">Turn on JavaScript to load publications, or see the full list on Google Scholar.</p></noscript>
+    <div class="pub-more-wrap"><button class="apply-btn" id="pub-more" hidden>Show more</button></div>
+    <p class="pub-status" id="pub-status"></p>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Jones Lab</div>
+    <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
+    <div class="footer-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('research')">Research</a>
+      <a onclick="showPage('team')">Team</a>
+      <a onclick="showPage('join')">Join</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ════ JOIN PAGE ════ -->
+<div class="page" id="page-join">
+  <div class="page-header">
+    <h1>Join the Team</h1>
+    <p>We are always looking for passionate, curious scientists to join our team. We welcome applicants at all career stages.</p>
+  </div>
+
+  <div class="join-section">
+    <div class="join-grid">
+      <div>
+        <p class="section-label">Open Positions</p>
+        <h2 class="section-title">Work With Us</h2>
+        <div class="divider"></div>
+
+        <div class="join-text">
+          <p>The Jones Lab is dedicated to training the next generation of pharmacologists and neuroscientists. We provide a rigorous, supportive environment where trainees gain expertise in various <i>in vivo</i> pharmacology techniques and develop their scientific independence.</p>
+          <p>We particularly encourage applications from candidates with backgrounds in neuroscience, pharmacology, molecular biology, genetics, and psychology. Experience with rodent behavior, in vivo recording, or molecular techniques is a plus.</p>
+        </div>
+
+        <ul class="positions-list">
+          <li>
+            <div class="pos-dot"></div>
+            <div class="pos-body">
+              <div class="pos-title">Postdoctoral Fellow</div>
+              <div class="pos-desc">Candidates with a PhD in pharmacology, neuroscience, or a related field are encouraged to apply. Independent funding through fellowship applications is supported and encouraged.</div>
+            </div>
+            <a class="apply-btn" href="mailto:carrie.jones@vanderbilt.edu?subject=Interest%20in%20joining%20the%20Jones%20Lab%20%28post-doc%29&amp;body=Dear%20Dr.%20Jones%2C%0A%0A%5BBriefly%20introduce%20yourself%2C%20your%20background%2C%20and%20your%20research%20interests.%5D%0A%0AREMINDER%3A%20Please%20attach%20your%20CV%20and%20include%20contact%20information%20for%20three%20references%20before%20sending.%0A%0ABest%20regards%2C%0A%5BYour%20name%5D">Apply <span class="icon">✉</span></a>
+          </li>
+          <li>
+            <div class="pos-dot"></div>
+            <div class="pos-body">
+              <div class="pos-title">Graduate Student</div>
+              <div class="pos-desc">Students already enrolled in Vanderbilt graduate programs (Neuroscience, Pharmacology, MSTP, IGP) who are interested in rotating should reach out directly to Dr. Jones.</div>
+            </div>
+            <a class="apply-btn" href="mailto:carrie.jones@vanderbilt.edu?subject=Interest%20in%20joining%20the%20Jones%20Lab%20%28graduate%20student%29&amp;body=Dear%20Dr.%20Jones%2C%0A%0A%5BBriefly%20introduce%20yourself%2C%20your%20background%2C%20and%20your%20research%20interests.%5D%0A%0AREMINDER%3A%20Please%20attach%20your%20CV%20and%20include%20contact%20information%20for%20three%20references%20before%20sending.%0A%0ABest%20regards%2C%0A%5BYour%20name%5D">Apply <span class="icon">✉</span></a>
+          </li>
+          <li>
+            <div class="pos-dot"></div>
+            <div class="pos-body">
+              <div class="pos-title">Undergraduate Researcher</div>
+              <div class="pos-desc">Vanderbilt undergraduates with strong academic standing and a genuine interest in pharmacology and neuroscience research are welcome to apply for volunteer or for-credit positions.</div>
+            </div>
+            <a class="apply-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSeCSc0AJiO7WGclX3Q31CwOzpmjM_FA4KbvB384IzpD7ht79A/viewform" target="_blank" rel="noopener">Apply <span class="icon">↗</span></a>
+          </li>
+          <li>
+            <div class="pos-dot"></div>
+            <div class="pos-body">
+              <div class="pos-title">Research Technician / Lab Manager</div>
+              <div class="pos-desc">Post-baccalaureate candidates with lab experience who are planning future graduate studies and want hands-on research training are encouraged to apply.</div>
+            </div>
+            <div class="apply-closed">
+              <span class="apply-btn" aria-disabled="true">Apply <span class="icon">✉</span></span>
+              <span class="apply-closed-note">Not accepting at this time</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="contact-box">
+          <h3>Get In Touch</h3>
+          <div class="contact-detail">
+            <span class="contact-icon">📧</span>
+            <div class="contact-detail-text">
+              <strong style="color:#fff">Email</strong><br>
+              <a href="mailto:carrie.jones@vanderbilt.edu">carrie.jones@vanderbilt.edu</a>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-icon">📍</span>
+            <div class="contact-detail-text">
+              <strong style="color:#fff">Location</strong><br>
+              418 Preston Research Building<br>
+              Vanderbilt University<br>
+              2215 Garland Avenue<br>
+              Nashville, TN 37232
+            </div>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-icon">📞</span>
+            <div class="contact-detail-text">
+              <strong style="color:#fff">Phone</strong><br>
+              (859) 797-5465
+            </div>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-icon">🎓</span>
+            <div class="contact-detail-text">
+              <strong style="color:#fff">Affiliated Programs</strong><br>
+              Vanderbilt Neuroscience Graduate Program<br>
+              Vanderbilt Center for Addiction Research<br>
+              Dept. of Pharmacology
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Jones Lab</div>
+    <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
+    <div class="footer-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('research')">Research</a>
+      <a onclick="showPage('team')">Team</a>
+      <a onclick="showPage('publications')">Publications</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ════ LAB LINKS PAGE ════ -->
+<div class="page" id="page-links">
+  <div class="page-header">
+    <h1>Lab Links</h1>
+    <p>Quick access to the forms and spreadsheets we use day to day.</p>
+  </div>
+
+  <div class="links-section">
+    <div class="links-locked" id="links-locked">
+      <div class="links-skeleton" aria-hidden="true">
+      <div class="links-group">
+        <p class="team-role-header">&nbsp;</p>
+        <div class="links-grid">
+          <div class="link-card skeleton"><div class="link-icon"></div><div><div class="sk-line w60"></div><div class="sk-line w90"></div><div class="sk-line w40"></div></div></div>
+          <div class="link-card skeleton"><div class="link-icon"></div><div><div class="sk-line w60"></div><div class="sk-line w90"></div><div class="sk-line w40"></div></div></div>
+        </div>
+      </div>
+      <div class="links-group">
+        <p class="team-role-header">&nbsp;</p>
+        <div class="links-grid">
+          <div class="link-card skeleton"><div class="link-icon"></div><div><div class="sk-line w60"></div><div class="sk-line w90"></div><div class="sk-line w40"></div></div></div>
+          <div class="link-card skeleton"><div class="link-icon"></div><div><div class="sk-line w60"></div><div class="sk-line w90"></div><div class="sk-line w40"></div></div></div>
+        </div>
+      </div>
+      </div>
+      <form class="lock-card" id="lock-form" autocomplete="off">
+        <div class="lock-icon">🔒</div>
+        <h3>Lab Members Only</h3>
+        <p>Enter the lab password to view internal forms and spreadsheets.</p>
+        <div class="lock-row">
+          <input type="password" id="lock-pw" placeholder="Password" aria-label="Lab password">
+          <button type="submit" class="apply-btn" id="lock-btn">Unlock</button>
+        </div>
+        <p class="lock-error" id="lock-error" role="alert"></p>
+      </form>
+    </div>
+    <div id="links-content" hidden></div>
+    <p class="lock-again" id="lock-again" hidden><a onclick="lockLinks()">🔒 Lock this page</a></p>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Jones Lab</div>
+    <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
+    <div class="footer-links">
+      <a onclick="showPage('home')">Home</a>
+      <a onclick="showPage('research')">Research</a>
+      <a onclick="showPage('team')">Team</a>
+      <a onclick="showPage('join')">Join</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+  /* ── PUBLICATIONS (auto-updated from PubMed) ──
+     To fine-tune which papers appear, edit PUBMED_QUERY (same syntax as the PubMed search box).
+     HIDE_PMIDS: papers to leave out, e.g. ['12345678']. */
+  const PUBMED_QUERY = 'Jones CK[Author] AND (Vanderbilt[Affiliation] OR muscarinic[Title/Abstract] OR metabotropic[Title/Abstract] OR mGlu*[Title/Abstract]) NOT correction[Title] NOT "Published Erratum"[Publication Type]';
+  const HIDE_PMIDS = [];
+  const PUBS_PER_PAGE = 15;
+  const LAB_AUTHOR = 'Jones CK';
+  const EUTILS = 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils';
+  const PUB_CACHE_KEY = 'jl_pubs_v2', PUB_CACHE_HOURS = 24;
+
+  let pubTotal = 0, pubShown = 0, pubLoading = false;
+
+  function escapeHTML(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  // keep italics/sub/superscripts PubMed uses in titles (e.g. <i>in vivo</i>, M<sub>1</sub>)
+  function titleHTML(s) {
+    return escapeHTML(s).replace(/&lt;(\/?)(i|sub|sup|b)&gt;/g, '<$1$2>');
+  }
+  // PubMed often lowercases journal names ("ACS chemical neuroscience") and adds subtitles; tidy them up
+  const SMALL_WORDS = new Set(['a','an','and','as','at','by','de','for','in','of','on','or','the','to','with']);
+  function journalName(s) {
+    s = String(s || '').split(' : ')[0].split(' = ')[0].trim();
+    return s.split(' ').map((w, i) => {
+      if (/[A-Z]/.test(w.slice(1)) || /^[A-Z0-9&.\-]+$/.test(w)) return w;   // keep ACS, eNeuro, PLoS
+      if (i > 0 && SMALL_WORDS.has(w.toLowerCase())) return w.toLowerCase();
+      return w.replace(/^(\(?)(\w)/, (m, par, c) => par + c.toUpperCase());
+    }).join(' ');
+  }
+
+  function pubHTML(p) {
+    const names = p.authors.map(a => a.name);
+    let shown = names.slice(0, 3);
+    const labIdx = names.indexOf(LAB_AUTHOR);
+    let authors = shown.join(', ');
+    if (names.length > 3) authors += labIdx >= 3 ? `, … ${LAB_AUTHOR}` : ', et al.';
+    authors = escapeHTML(authors).replace(LAB_AUTHOR, `<strong>${LAB_AUTHOR}</strong>`);
+    const journal = journalName(p.fulljournalname || p.source);
+    return `<div class="pub-entry">
+        <div class="pub-entry-journal">${escapeHTML(journal)}</div>
+        <div class="pub-entry-title"><a href="https://pubmed.ncbi.nlm.nih.gov/${p.uid}/" target="_blank" rel="noopener">${titleHTML(p.title.replace(/\.$/, ''))}</a></div>
+        <div class="pub-authors">${authors}</div>
+      </div>`;
+  }
+  const pubYear = p => ((p.sortpubdate || p.pubdate || '').match(/\d{4}/) || ['Other'])[0];
+
+  async function fetchPubs(start) {
+    const q = new URLSearchParams({ db: 'pubmed', retmode: 'json', sort: 'pub_date', retstart: start, retmax: PUBS_PER_PAGE, term: PUBMED_QUERY });
+    const s = await (await fetch(`${EUTILS}/esearch.fcgi?${q}`)).json();
+    const ids = s.esearchresult.idlist.filter(id => !HIDE_PMIDS.includes(id));
+    const total = +s.esearchresult.count;
+    if (!ids.length) return { total, items: [] };
+    const r = await (await fetch(`${EUTILS}/esummary.fcgi?db=pubmed&retmode=json&id=${ids.join(',')}`)).json();
+    return { total, items: r.result.uids.map(u => r.result[u]).filter(x => x && x.title && !/correction/i.test(x.title)) };
+  }
+
+  let allPubs = [];
+  function renderPubs(items, append) {
+    allPubs = append ? allPubs.concat(items) : items.slice();
+    pubShown = allPubs.length;
+    const groups = [];
+    allPubs.forEach(p => {
+      const y = pubYear(p);
+      let g = groups.find(x => x.year === y);
+      if (!g) groups.push(g = { year: y, items: [] });
+      g.items.push(p);
+    });
+    const list = document.getElementById('pub-list');
+    list.classList.add('timeline');
+    list.innerHTML = groups.map(g => `<div class="pub-year">
+        <div class="pub-year-num">${g.year}<span class="pub-year-count">${g.items.length} paper${g.items.length > 1 ? 's' : ''}</span></div>
+        <div>${g.items.map(pubHTML).join('')}</div>
+      </div>`).join('');
+    document.getElementById('pub-more').hidden = pubShown >= pubTotal;
+  }
+
+  async function loadPubs(append) {
+    if (pubLoading) return; pubLoading = true;
+    const status = document.getElementById('pub-status');
+    const more = document.getElementById('pub-more');
+    if (!append) {
+      try {   // show cached list instantly if it's recent
+        const c = JSON.parse(localStorage.getItem(PUB_CACHE_KEY) || 'null');
+        if (c && c.query === PUBMED_QUERY && Date.now() - c.time < PUB_CACHE_HOURS * 3600e3) {
+          pubTotal = c.total; renderPubs(c.items, false);
+          status.textContent = 'Updated automatically from PubMed'; pubLoading = false; return;
+        }
+      } catch (e) {}
+    }
+    more.disabled = true; more.textContent = 'Loading…';
+    try {
+      const { total, items } = await fetchPubs(append ? pubShown : 0);
+      pubTotal = total;
+      renderPubs(items, append);
+      if (!append) { try { localStorage.setItem(PUB_CACHE_KEY, JSON.stringify({ query: PUBMED_QUERY, time: Date.now(), total, items })); } catch (e) {} }
+      status.textContent = 'Updated automatically from PubMed';
+    } catch (err) {
+      let stale = null;
+      try { stale = JSON.parse(localStorage.getItem(PUB_CACHE_KEY) || 'null'); } catch (e) {}
+      if (!append && stale) { pubTotal = stale.total; renderPubs(stale.items, false); }
+      else if (!append) document.getElementById('pub-list').innerHTML = '';
+      status.innerHTML = 'Couldn’t reach PubMed just now. See the full list on <a href="https://scholar.google.com/citations?user=YeOvyrUAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>.';
+    }
+    more.disabled = false; more.textContent = 'Show more';
+    pubLoading = false;
+  }
+  document.getElementById('pub-more').addEventListener('click', () => loadPubs(true));
+  loadPubs(false);
+
+  /* ── LAB LINKS LOCK ──
+     The links are stored encrypted below; they only exist in readable form after the right password is entered.
+     To change links or the password, use lab_links_encrypt.html and replace this whole line. */
+  const LAB_LINKS_LOCKED = {"v":1,"iter":250000,"salt":"klhOCKnGQkqVV5W9V6NknA==","iv":"NtvR5fInCgUNaOCQ","ct":"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"};
+  const UNLOCK_KEY = 'jl_links_pw';
+
+  async function decryptLinks(password) {
+    const d = LAB_LINKS_LOCKED, enc = new TextEncoder();
+    const bytes = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+    const base = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
+    const key = await crypto.subtle.deriveKey(
+      { name: 'PBKDF2', salt: bytes(d.salt), iterations: d.iter, hash: 'SHA-256' },
+      base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: bytes(d.iv) }, key, bytes(d.ct));
+    return new TextDecoder().decode(pt);
+  }
+
+  async function unlockLinks(password, quiet) {
+    const err = document.getElementById('lock-error'), btn = document.getElementById('lock-btn');
+    btn.disabled = true; btn.textContent = '…';
+    try {
+      document.getElementById('links-content').innerHTML = await decryptLinks(password);
+      document.getElementById('links-content').hidden = false;
+      document.getElementById('links-locked').hidden = true;
+      document.getElementById('lock-again').hidden = false;
+      try { sessionStorage.setItem(UNLOCK_KEY, password); } catch (e) {}
+      err.textContent = '';
+    } catch (e) {
+      if (!quiet) {
+        err.textContent = 'Incorrect password. Please try again.';
+        const card = document.getElementById('lock-form');
+        card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+        document.getElementById('lock-pw').select();
+      }
+    }
+    btn.disabled = false; btn.textContent = 'Unlock';
+  }
+
+  function lockLinks() {
+    try { sessionStorage.removeItem(UNLOCK_KEY); } catch (e) {}
+    document.getElementById('links-content').innerHTML = '';
+    document.getElementById('links-content').hidden = true;
+    document.getElementById('links-locked').hidden = false;
+    document.getElementById('lock-again').hidden = true;
+    document.getElementById('lock-pw').value = '';
+  }
+
+  document.getElementById('lock-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const pw = document.getElementById('lock-pw').value;
+    if (pw) unlockLinks(pw, false);
+  });
+  // stay unlocked for the rest of this browser session
+  try { const saved = sessionStorage.getItem(UNLOCK_KEY); if (saved) unlockLinks(saved, true); } catch (e) {}
+
+  function closeBios(except) {
+    document.querySelectorAll('.member-card.open').forEach(c => {
+      if (c !== except) { c.classList.remove('open'); c.querySelector('.bio-drawer').classList.remove('open'); }
+    });
+  }
+
+  function toggleBio(card) {
+    const drawer = card.querySelector('.bio-drawer');
+    const isOpen = card.classList.contains('open');
+    closeBios(card); // only one bio open at a time
+    card.classList.toggle('open', !isOpen);
+    drawer.classList.toggle('open', !isOpen);
+    // open to the left if the drawer would run off the right edge
+    drawer.classList.toggle('flip', card.getBoundingClientRect().right + 380 > window.innerWidth);
+  }
+
+  // clicking outside a card closes any open bio
+  document.addEventListener('click', e => { if (!e.target.closest('.member-card')) closeBios(); });
+
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.querySelector('.nav-links').classList.remove('open');
+    if (name === 'pipeline') placePipeFlag();
+    if (name === 'links' && !document.getElementById('links-locked').hidden) setTimeout(() => document.getElementById('lock-pw').focus({ preventScroll: true }), 300);
+  }
+
+  /* ── PIPELINE DIAGRAM ──
+     Edit stage text here. "lab: true" marks the stage the lab works in. */
+  const STAGES = [
+    { name: 'Target Discovery & Validation',
+      body: 'Identifying a biological target, such as a receptor, enzyme, or gene, that is linked to disease, and confirming that changing its activity could be therapeutic.',
+      items: ['GWAS / sequencing', 'Crystallography / cryo-EM', '<i>In vitro</i> and <i>in vivo</i> functional assays', 'Natural history studies'] },
+    { name: 'Drug Discovery & Screening',
+      body: 'Screening large chemical libraries, or designing molecules from the target\'s structure, to find "hits" that interact with the target.',
+      items: ['High-throughput screening', 'Structure-based drug design', 'Molecular dynamics', 'Initial <i>in vitro</i> safety assessment'] },
+    { name: 'Lead Optimization',
+      body: 'Chemically refining promising hits into "lead" molecules with better potency, selectivity, and drug-like properties.',
+      items: ['Medicinal chemistry / rational drug design', 'ADMET studies (absorption, distribution, metabolism, excretion, toxicity)'] },
+    { name: 'Preclinical Development', lab: true,
+      body: 'Testing lead compounds in cells and animal models for efficacy and safety before human trials. This is where the Jones Lab works.',
+      items: ['<i>In vitro</i> safety and efficacy in alternate cell lines', '<i>In vivo</i> efficacy in rodent disease models', '<i>In vivo</i> safety and tolerability', 'PK/PD and target engagement'] },
+    { name: 'Clinical Trials', clinical: true,
+      body: 'Testing the drug in human volunteers and patients across Phase I–III trials, followed by regulatory review.',
+      items: ['Patient recruitment, engagement, and oversight', 'Regulatory documentation and feedback'] },
+  ];
+
+  const pipeRow = document.getElementById('pipe-row');
+  const pipePanel = document.getElementById('pipe-panel');
+  const labIdx = STAGES.findIndex(s => s.lab);
+
+  pipeRow.innerHTML = STAGES.map(s =>
+    `<div class="chev${s.lab ? ' lab' : ''}${s.clinical ? ' clinical' : ''}" tabindex="0">${s.name}</div>`).join('');
+
+  function showStage(i) {
+    const s = STAGES[i];
+    [...pipeRow.children].forEach((c, j) => c.classList.toggle('active', j === i));
+    pipePanel.innerHTML = `<div class="pipe-panel-title">${s.name}${s.lab ? '<span class="lab-tag">Jones Lab</span>' : ''}</div>
+      <p class="pipe-panel-body">${s.body}</p>
+      <ul>${s.items.map(x => `<li>${x}</li>`).join('')}</ul>`;
+  }
+  [...pipeRow.children].forEach((c, i) => {
+    ['mouseenter', 'focus', 'click'].forEach(ev => c.addEventListener(ev, () => showStage(i)));
+  });
+  showStage(labIdx);
+
+  // center the "The Work We Do" label over the lab's stage
+  function placePipeFlag() {
+    const lab = pipeRow.children[labIdx];
+    const w = document.getElementById('pipe-wrap').getBoundingClientRect(), r = lab.getBoundingClientRect();
+    const flag = document.getElementById('pipe-flag');
+    flag.style.left = (r.left - w.left) + 'px';
+    flag.style.width = r.width + 'px';
+  }
+  window.addEventListener('resize', placePipeFlag);
+</script>
+</body>
+</html>
