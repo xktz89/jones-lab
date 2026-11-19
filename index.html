@@ -394,6 +394,11 @@
   }
 
   .pi-card img { aspect-ratio: 1; }
+  .pi-fallback {
+    width: 100%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--navy-mid), var(--navy-light));
+    font-size: 4rem; color: rgba(200,169,110,0.3);
+  }
 
   .pi-info h3 {
     font-family: 'Playfair Display', serif;
@@ -1218,7 +1223,7 @@
 
     <p class="team-role-header">Principal Investigator</p>
     <div class="pi-card">
-      <div class="placeholder-img" style="background:linear-gradient(135deg,#1A2D45,#243B57);display:flex;align-items:center;justify-content:center;font-size:4rem;color:rgba(200,169,110,0.3);aspect-ratio:1;width:100%">👩‍🔬</div>
+      <img src="https://cdn.vanderbilt.edu/t2-my/my-prd/wp-content/uploads/sites/2837/2018/06/Carrie-Jones.jpg" alt="Carrie K. Jones, Ph.D." loading="lazy" onerror="this.outerHTML='<div class=&quot;placeholder-img pi-fallback&quot;>👩‍🔬</div>'">
       <div class="pi-info">
         <h3>Carrie K. Jones, Ph.D.</h3>
         <p class="role">Director, In Vivo Pharmacology and Drug Development, Warren Center for Neuroscience Drug Discovery · Associate Professor, Pharmacology</p>
@@ -1382,7 +1387,6 @@
         <div class="member-info">
           <h4>Niall Dundee</h4>
           <div class="role">Undergraduate Researcher</div>
-          <div class="fellowship">Now: [current position]</div>
         </div>
       </div>
       <div class="member-card">
@@ -1390,7 +1394,6 @@
         <div class="member-info">
           <h4>Armann Gudmundsson</h4>
           <div class="role">Undergraduate Researcher</div>
-          <div class="fellowship">Now: [current position]</div>
         </div>
       </div>
       <div class="member-card">
@@ -1398,7 +1401,6 @@
         <div class="member-info">
           <h4>Sindur Patel</h4>
           <div class="role">Undergraduate Researcher</div>
-          <div class="fellowship">Now: [current position]</div>
         </div>
       </div>
     </div>
