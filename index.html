@@ -835,7 +835,7 @@
     overflow-y: auto;     /* long bios scroll inside */
     scrollbar-width: thin;
     scrollbar-color: rgba(200,169,110,0.5) transparent;
-    width: 360px;
+    width: 400px;
     background: #fff;
     border: 1px solid rgba(200,169,110,0.3);
     border-left: 3px solid var(--gold);
@@ -856,6 +856,12 @@
   }
 
   .bio-drawer p:last-child { margin-bottom: 0; }
+  .bio-drawer .bio-funding {
+    font-style: italic;
+    font-size: 0.76rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(200,169,110,0.2);
+  }
 
   .bio-drawer .bio-interests {
     margin-top: 0.75rem;
@@ -1296,7 +1302,7 @@
         <div class="member-info">
           <h4>Zander Maitland, Ph.D. Student</h4>
           <div class="role">Department of Pharmacology</div>
-          <div class="fellowship">NIDA Predoctoral Fellow</div>
+          <div class="fellowship">NIGMS T32 Trainee</div>
           <div class="contact-btns"><a class="contact-btn" href="mailto:alexander.d.maitland@vanderbilt.edu" title="alexander.d.maitland@vanderbilt.edu" onclick="event.stopPropagation()">✉ Email</a><a class="contact-btn" href="https://scholar.google.com/citations?user=FGIKboQAAAAJ&amp;hl=en" target="_blank" rel="noopener" onclick="event.stopPropagation()">🎓 Scholar</a></div>
           <div class="bio-toggle">
             About <span class="bio-arrow">›</span>
@@ -1306,6 +1312,7 @@
           <p>Zander majored in Neuroscience at the University of Michigan and conducted research in the lab of Dr. Carrie R. Ferrario, where he studied the interplay of pharmacokinetics and sex-specific factors in the development of cocaine addiction in rats.</p>
           <p>As a post-bac at NIDA in the lab of Dr. Michael H. Baumann, he characterized the preclinical pharmacology of emerging synthetic opioids and assess potential psychedelic and entactogenic medications for treating neuropsychiatric disorders.</p>
           <p>His dissertation research focuses on understanding the role of muscarinic acetylcholine receptors in modulating reward circuitry and addiction-related behaviors. His work combines <i>in vivo</i> pharmacology, behavioral neuroscience, and machine-learning approaches.</p>
+          <p class="bio-funding">Supported by the NIGMS T32 training grant to the Vanderbilt Department of Pharmacology (T32GM149363).</p>
         </div>
       </div>
     </div>
@@ -1845,7 +1852,7 @@
     card.classList.toggle('open', !isOpen);
     drawer.classList.toggle('open', !isOpen);
     // open to the left if the drawer would run off the right edge
-    drawer.classList.toggle('flip', card.getBoundingClientRect().right + 380 > window.innerWidth);
+    drawer.classList.toggle('flip', card.getBoundingClientRect().right + 420 > window.innerWidth);
   }
 
   // clicking outside a card closes any open bio
