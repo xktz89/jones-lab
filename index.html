@@ -912,6 +912,11 @@
   .lock-again a { color: var(--text-muted); cursor: pointer; }
   .lock-again a:hover { color: var(--navy); }
 
+  .link-card.pending { cursor: default; border-style: dashed; }
+  .link-card.pending:hover { transform: none; box-shadow: none; border-left-color: transparent; }
+  .link-card.pending .link-icon { opacity: 0.55; }
+  .link-card.pending .link-type { color: var(--text-muted); }
+
   .link-type {
     display: inline-block; margin-top: 0.6rem;
     font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent);
@@ -1003,16 +1008,16 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" onclick="showPage('home')">Carrie K. Jones Lab</a>
+  <a class="nav-logo" href="#home" onclick="showPage('home'); return false;">Carrie K. Jones Lab</a>
   <button class="nav-toggle" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
   <ul class="nav-links">
-    <li><a onclick="showPage('home')">Home</a></li>
-    <li><a onclick="showPage('research')">Research</a></li>
-    <li><a onclick="showPage('pipeline')">Pipeline</a></li>
-    <li><a onclick="showPage('team')">The Team</a></li>
-    <li><a onclick="showPage('publications')">Publications</a></li>
-    <li><a onclick="showPage('join')">Join</a></li>
-    <li><a onclick="showPage('links')">Lab Links</a></li>
+    <li><a href="#home" onclick="showPage('home'); return false;">Home</a></li>
+    <li><a href="#research" onclick="showPage('research'); return false;">Research</a></li>
+    <li><a href="#pipeline" onclick="showPage('pipeline'); return false;">Pipeline</a></li>
+    <li><a href="#team" onclick="showPage('team'); return false;">The Team</a></li>
+    <li><a href="#publications" onclick="showPage('publications'); return false;">Publications</a></li>
+    <li><a href="#join" onclick="showPage('join'); return false;">Join</a></li>
+    <li><a href="#links" onclick="showPage('links'); return false;">Lab Links</a></li>
   </ul>
 </nav>
 
@@ -1029,8 +1034,8 @@
         We use cutting-edge <i>in vivo</i> pharmacology techniques to understand how muscarinic acetylcholine receptors modulate disease states.
       </p>
       <div class="hero-ctas anim anim-4">
-        <span class="btn btn-primary" onclick="showPage('research')">Our Research</span>
-        <span class="btn btn-outline" onclick="showPage('join')">Join the Lab</span>
+        <a class="btn btn-primary" href="#research" onclick="showPage('research'); return false;">Our Research</a>
+        <a class="btn btn-outline" href="#join" onclick="showPage('join'); return false;">Join the Lab</a>
       </div>
     </div>
     <div class="hero-visual">
@@ -1044,15 +1049,15 @@
       </div>
       <div class="hero-stats">
         <div class="stat">
-          <span class="stat-num">150+</span>
+          <span class="stat-num" id="stat-pubs">…</span>
           <span class="stat-label">Publications</span>
         </div>
         <div class="stat">
-          <span class="stat-num">15+</span>
+          <span class="stat-num" id="stat-members">…</span>
           <span class="stat-label">Lab Members</span>
         </div>
         <div class="stat">
-          <span class="stat-num">3+</span>
+          <span class="stat-num">3</span>
           <span class="stat-label">Active Grants</span>
         </div>
       </div>
@@ -1102,7 +1107,7 @@
       </div>
     </div>
     <div style="margin-top:2.5rem">
-      <span class="btn btn-outline" onclick="showPage('research')">View All Projects</span>
+      <a class="btn btn-outline" href="#research" onclick="showPage('research'); return false;">View All Projects</a>
     </div>
   </section>
 
@@ -1110,10 +1115,10 @@
     <div class="footer-logo">Jones Lab</div>
     <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
     <div class="footer-links">
-      <a onclick="showPage('research')">Research</a>
-      <a onclick="showPage('team')">Team</a>
-      <a onclick="showPage('publications')">Publications</a>
-      <a onclick="showPage('join')">Join</a>
+      <a href="#research" onclick="showPage('research'); return false;">Research</a>
+      <a href="#team" onclick="showPage('team'); return false;">Team</a>
+      <a href="#publications" onclick="showPage('publications'); return false;">Publications</a>
+      <a href="#join" onclick="showPage('join'); return false;">Join</a>
     </div>
   </footer>
 </div>
@@ -1145,10 +1150,10 @@
     <div class="footer-logo">Jones Lab</div>
     <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
     <div class="footer-links">
-      <a onclick="showPage('home')">Home</a>
-      <a onclick="showPage('team')">Team</a>
-      <a onclick="showPage('publications')">Publications</a>
-      <a onclick="showPage('join')">Join</a>
+      <a href="#home" onclick="showPage('home'); return false;">Home</a>
+      <a href="#team" onclick="showPage('team'); return false;">Team</a>
+      <a href="#publications" onclick="showPage('publications'); return false;">Publications</a>
+      <a href="#join" onclick="showPage('join'); return false;">Join</a>
     </div>
   </footer>
 </div>
@@ -1184,10 +1189,10 @@
     <div class="footer-logo">Jones Lab</div>
     <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
     <div class="footer-links">
-      <a onclick="showPage('home')">Home</a>
-      <a onclick="showPage('research')">Research</a>
-      <a onclick="showPage('team')">Team</a>
-      <a onclick="showPage('join')">Join</a>
+      <a href="#home" onclick="showPage('home'); return false;">Home</a>
+      <a href="#research" onclick="showPage('research'); return false;">Research</a>
+      <a href="#team" onclick="showPage('team'); return false;">Team</a>
+      <a href="#join" onclick="showPage('join'); return false;">Join</a>
     </div>
   </footer>
 </div>
@@ -1398,10 +1403,10 @@
     <div class="footer-logo">Jones Lab</div>
     <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
     <div class="footer-links">
-      <a onclick="showPage('home')">Home</a>
-      <a onclick="showPage('research')">Research</a>
-      <a onclick="showPage('publications')">Publications</a>
-      <a onclick="showPage('join')">Join</a>
+      <a href="#home" onclick="showPage('home'); return false;">Home</a>
+      <a href="#research" onclick="showPage('research'); return false;">Research</a>
+      <a href="#publications" onclick="showPage('publications'); return false;">Publications</a>
+      <a href="#join" onclick="showPage('join'); return false;">Join</a>
     </div>
   </footer>
 </div>
@@ -1428,10 +1433,10 @@
     <div class="footer-logo">Jones Lab</div>
     <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
     <div class="footer-links">
-      <a onclick="showPage('home')">Home</a>
-      <a onclick="showPage('research')">Research</a>
-      <a onclick="showPage('team')">Team</a>
-      <a onclick="showPage('join')">Join</a>
+      <a href="#home" onclick="showPage('home'); return false;">Home</a>
+      <a href="#research" onclick="showPage('research'); return false;">Research</a>
+      <a href="#team" onclick="showPage('team'); return false;">Team</a>
+      <a href="#join" onclick="showPage('join'); return false;">Join</a>
     </div>
   </footer>
 </div>
@@ -1533,10 +1538,10 @@
     <div class="footer-logo">Jones Lab</div>
     <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
     <div class="footer-links">
-      <a onclick="showPage('home')">Home</a>
-      <a onclick="showPage('research')">Research</a>
-      <a onclick="showPage('team')">Team</a>
-      <a onclick="showPage('publications')">Publications</a>
+      <a href="#home" onclick="showPage('home'); return false;">Home</a>
+      <a href="#research" onclick="showPage('research'); return false;">Research</a>
+      <a href="#team" onclick="showPage('team'); return false;">Team</a>
+      <a href="#publications" onclick="showPage('publications'); return false;">Publications</a>
     </div>
   </footer>
 </div>
@@ -1585,10 +1590,10 @@
     <div class="footer-logo">Jones Lab</div>
     <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
     <div class="footer-links">
-      <a onclick="showPage('home')">Home</a>
-      <a onclick="showPage('research')">Research</a>
-      <a onclick="showPage('team')">Team</a>
-      <a onclick="showPage('join')">Join</a>
+      <a href="#home" onclick="showPage('home'); return false;">Home</a>
+      <a href="#research" onclick="showPage('research'); return false;">Research</a>
+      <a href="#team" onclick="showPage('team'); return false;">Team</a>
+      <a href="#join" onclick="showPage('join'); return false;">Join</a>
     </div>
   </footer>
 </div>
@@ -1651,6 +1656,11 @@
   }
 
   let allPubs = [];
+  function setPubStat(total) {
+    const el = document.getElementById('stat-pubs');
+    if (el && total > 0) { el.textContent = total; el.parentElement.hidden = false; }
+  }
+
   function renderPubs(items, append) {
     allPubs = append ? allPubs.concat(items) : items.slice();
     pubShown = allPubs.length;
@@ -1668,6 +1678,7 @@
         <div>${g.items.map(pubHTML).join('')}</div>
       </div>`).join('');
     document.getElementById('pub-more').hidden = pubShown >= pubTotal;
+    setPubStat(pubTotal);
   }
 
   async function loadPubs(append) {
@@ -1694,7 +1705,10 @@
       let stale = null;
       try { stale = JSON.parse(localStorage.getItem(PUB_CACHE_KEY) || 'null'); } catch (e) {}
       if (!append && stale) { pubTotal = stale.total; renderPubs(stale.items, false); }
-      else if (!append) document.getElementById('pub-list').innerHTML = '';
+      else if (!append) {
+        document.getElementById('pub-list').innerHTML = '';
+        const st = document.getElementById('stat-pubs'); if (st && st.textContent === '…') st.parentElement.hidden = true;
+      }
       status.innerHTML = 'Couldn’t reach PubMed just now. See the full list on <a href="https://scholar.google.com/citations?user=YeOvyrUAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>.';
     }
     more.disabled = false; more.textContent = 'Show more';
@@ -1706,7 +1720,7 @@
   /* ── LAB LINKS LOCK ──
      The links are stored encrypted below; they only exist in readable form after the right password is entered.
      To change links or the password, use lab_links_encrypt.html and replace this whole line. */
-  const LAB_LINKS_LOCKED = {"v":1,"iter":250000,"salt":"L778VTgwHH8te22z2ksUoA==","iv":"WdPqHYNvWvP22s9p","ct":"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"};
+  const LAB_LINKS_LOCKED = {"v":1,"iter":250000,"salt":"h5c5NDz1CfP9vIuwiNe7Xw==","iv":"l0qjsAVvoYxMdy5V","ct":"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"};
   const UNLOCK_KEY = 'jl_links_pw';
 
   async function decryptLinks(password) {
@@ -1767,6 +1781,23 @@
   }
   setTimeout(checkPiPhoto, 10000);
 
+  (function countMembers() {
+    let n = 0;
+    for (const h of document.querySelectorAll('#page-team .team-role-header')) {
+      if (h.textContent.trim() === 'Alumni') break;
+      const next = h.nextElementSibling;
+      if (next.classList.contains('pi-card')) n += 1;
+      else if (next.classList.contains('members-grid')) n += next.querySelectorAll('.member-card').length;
+    }
+    document.getElementById('stat-members').textContent = n;
+  })();
+
+  window.addEventListener('popstate', () => showPage(pageFromHash(), { fromHistory: true }));
+  window.addEventListener('hashchange', () => {
+    const name = pageFromHash();
+    if (!document.getElementById('page-' + name).classList.contains('active')) showPage(name, { fromHistory: true });
+  });
+
   function closeBios(except) {
     document.querySelectorAll('.member-card.open').forEach(c => {
       if (c !== except) { c.classList.remove('open'); c.querySelector('.bio-drawer').classList.remove('open'); }
@@ -1786,10 +1817,29 @@
   // clicking outside a card closes any open bio
   document.addEventListener('click', e => { if (!e.target.closest('.member-card')) closeBios(); });
 
-  function showPage(name) {
+  /* ── PAGES & ADDRESSES ──
+     Each page has its own link (e.g. …/jones-lab/#team), so pages can be shared and the Back button works. */
+  const PAGE_TITLES = {
+    home: 'Jones Lab — Vanderbilt University',
+    research: 'Research — Jones Lab',
+    pipeline: 'Drug Discovery Pipeline — Jones Lab',
+    team: 'The Team — Jones Lab',
+    publications: 'Publications — Jones Lab',
+    join: 'Join the Lab — Jones Lab',
+    links: 'Lab Links — Jones Lab',
+  };
+  const pageFromHash = () => { const h = location.hash.slice(1); return h in PAGE_TITLES ? h : 'home'; };
+
+  function showPage(name, opts = {}) {
+    if (!(name in PAGE_TITLES)) name = 'home';
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document.title = PAGE_TITLES[name];
+    if (!opts.fromHistory) {
+      const url = name === 'home' ? location.pathname + location.search : '#' + name;
+      if (pageFromHash() !== name || (name === 'home' && location.hash)) history.pushState(null, '', url);
+    }
+    window.scrollTo({ top: 0, behavior: opts.fromHistory ? 'auto' : 'smooth' });
     document.querySelector('.nav-links').classList.remove('open');
     if (name === 'pipeline') placePipeFlag();
     if (name === 'links' && !document.getElementById('links-locked').hidden) setTimeout(() => document.getElementById('lock-pw').focus({ preventScroll: true }), 300);
@@ -1843,6 +1893,8 @@
     flag.style.width = r.width + 'px';
   }
   window.addEventListener('resize', placePipeFlag);
+
+  if (pageFromHash() !== 'home') showPage(pageFromHash(), { fromHistory: true });
 </script>
 </body>
 </html>
