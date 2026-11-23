@@ -28,7 +28,7 @@
 <meta name="twitter:image" content="https://xktz89.github.io/jones-lab/preview.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --gold: #C8A96E;
@@ -1001,6 +1001,68 @@
   .work-card h4 { font-family: 'Playfair Display', serif; color: #fff; margin-bottom: 0.5rem; font-size: 1rem; }
   .our-work .work-card p { font-size: 0.82rem; line-height: 1.6; color: rgba(255,255,255,0.55); margin: 0; }
 
+  /* ── MONITORS PAGE ── */
+  .monitors-section { padding: 2.5rem 5rem 4rem; }
+  .mon-back { font-size: 0.75rem; letter-spacing: 0.08em; color: var(--text-muted); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
+  .mon-back:hover { color: var(--navy); }
+  .mon-list { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.75rem; }
+  .mon-card { display: flex; gap: 0.9rem; align-items: center; background: #fff; border: 1px solid rgba(0,0,0,0.07); border-left: 3px solid transparent; padding: 0.9rem 1.2rem; min-width: 280px; cursor: pointer; text-align: left; font-family: inherit; transition: box-shadow 0.2s, border-color 0.2s; }
+  .mon-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .mon-card.on { border-left-color: var(--gold); }
+  .mon-icon { width: 38px; height: 38px; background: var(--navy); color: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 1.05rem; flex-shrink: 0; }
+  .mon-title { font-family: 'Playfair Display', serif; color: var(--navy); font-size: 1rem; }
+  .mon-sub { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.15rem; }
+  .mon-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 0.35rem; vertical-align: middle; background: #bbb; }
+  .mon-dot.ok { background: #3fa66b; box-shadow: 0 0 0 3px rgba(63,166,107,0.18); }
+  .mon-dot.bad { background: #c0392b; box-shadow: 0 0 0 3px rgba(192,57,43,0.18); }
+  .mon-msg { background: #fff; border: 1px dashed rgba(0,0,0,0.15); padding: 2.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; }
+  .mon-msg b { color: var(--navy); }
+  .mon-foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.25rem; font-size: 0.75rem; color: var(--text-muted); }
+  .view-toggle { display: inline-flex; border: 1px solid var(--gold); border-radius: 999px; overflow: hidden; }
+  .view-toggle button { font-family: inherit; font-size: 0.66rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.45rem 0.95rem; border: none; background: transparent; color: var(--navy); cursor: pointer; }
+  .view-toggle button.on { background: var(--navy); color: var(--gold); }
+  #monitors-locked .lock-card { position: static; transform: none; margin: 1rem auto; }
+
+  /* DOS view (gold on blue) */
+  .crt { border-radius: 10px; padding: 1.4rem 1.6rem 1.2rem; position: relative; overflow-x: auto; background: radial-gradient(ellipse at center, #123a9c 0%, #0b2577 70%, #071a57 100%); box-shadow: 0 20px 50px rgba(15,27,45,0.25), inset 0 0 70px rgba(0,0,0,0.45); }
+  .crt pre { font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.32; white-space: pre; position: relative; z-index: 1; color: #F2CC6B; text-shadow: 0 0 4px rgba(242,204,107,0.55); }
+  .crt::after { content: ''; position: absolute; inset: 0; border-radius: 10px; pointer-events: none; z-index: 2; background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,0.16) 3px); }
+  .crt .hi { color: #FFF1C7; } .crt .alarm { color: #fff; background: #b3261e; text-shadow: none; }
+  .crt .cursor { animation: crtblink 1.2s steps(1) infinite; } @keyframes crtblink { 50% { opacity: 0; } }
+
+  /* dashboard view */
+  .dash { background: #fff; border: 1px solid rgba(0,0,0,0.07); }
+  .dash-head { background: var(--navy); color: #fff; padding: 1.5rem 1.75rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap; }
+  .dash-head h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; }
+  .dash-head .run { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: rgba(255,255,255,0.45); margin-top: 0.3rem; }
+  .pill { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.35rem 0.8rem; border-radius: 999px; white-space: nowrap; }
+  .pill.ok { background: rgba(63,166,107,0.18); color: #8fe0b0; } .pill.bad { background: #b3261e; color: #fff; }
+  .dash-meta { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid rgba(0,0,0,0.07); }
+  .meta { padding: 1.1rem 1.5rem; border-right: 1px solid rgba(0,0,0,0.07); } .meta:last-child { border-right: none; }
+  .meta-l { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.35rem; }
+  .meta-v { font-size: 0.88rem; color: var(--navy); line-height: 1.45; }
+  .dash-body { padding: 1.75rem; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .panel-t { font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(200,169,110,0.25); }
+  .prog { margin-bottom: 1rem; } .prog-top { display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--navy); margin-bottom: 0.35rem; }
+  .prog-top span:last-child { font-family: 'DM Mono', monospace; color: var(--text-muted); font-size: 0.75rem; }
+  .track { height: 8px; background: var(--off-white); border-radius: 99px; overflow: hidden; }
+  .fill { height: 100%; background: var(--gold); border-radius: 99px; transition: width 0.5s; } .fill.green { background: var(--accent); }
+  .note { font-size: 0.75rem; color: var(--text-muted); font-style: italic; margin-top: 0.25rem; }
+  table.mgrid { width: 100%; border-collapse: collapse; font-size: 0.75rem; }
+  .mgrid th { font-weight: 500; color: var(--text-muted); font-size: 0.65rem; letter-spacing: 0.08em; text-align: center; padding: 0.3rem; }
+  .mgrid th:first-child, .mgrid td:first-child { text-align: left; }
+  .mgrid td { padding: 0.38rem 0.3rem; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); color: var(--navy); white-space: nowrap; }
+  .mgrid td small { color: var(--text-muted); font-family: 'DM Mono', monospace; margin-right: 0.3rem; }
+  .pips { display: inline-flex; gap: 3px; } .pip { width: 9px; height: 9px; border-radius: 2px; background: #ebe7de; }
+  .pip.t { background: var(--gold-light); border: 1px solid var(--gold); } .pip.s { background: var(--accent); }
+  .legend { font-size: 0.7rem; color: var(--text-muted); margin-top: 0.75rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+  .legend .pip { display: inline-block; margin-right: 0.3rem; vertical-align: middle; }
+  .list-row { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.8rem; padding: 0.45rem 0; border-top: 1px solid rgba(0,0,0,0.05); color: var(--navy); }
+  .list-row span:last-child { font-family: 'DM Mono', monospace; color: var(--accent); text-align: right; }
+  .empty { font-size: 0.8rem; color: var(--text-muted); font-style: italic; }
+  .logbox { background: var(--navy); color: #d9dee7; font-family: 'DM Mono', monospace; font-size: 0.7rem; line-height: 1.6; padding: 1rem 1.2rem; overflow-x: auto; white-space: pre; grid-column: 1 / -1; }
+  .logbox b { color: var(--gold); font-weight: 400; }
+
   /* MOBILE */
   @media (max-width: 768px) {
     section, .team-section, .research-page-section, .pubs-section, .join-section { padding: 3rem 1.5rem; }
@@ -1026,6 +1088,10 @@
     .links-section { padding: 2rem 1.5rem; }
     .pipeline-section { padding: 2rem 1.5rem 2rem; }
     .lock-row { flex-direction: column; }
+    .monitors-section { padding: 2rem 1rem 3rem; }
+    .crt { padding: 1rem; } .crt pre { font-size: 8.5px; }
+    .dash-meta { grid-template-columns: 1fr 1fr; } .dash-body { grid-template-columns: 1fr; } .meta { border-bottom: 1px solid rgba(0,0,0,0.07); }
+    .mon-card { min-width: 0; width: 100%; }
     .pub-year { grid-template-columns: 1fr; gap: 1rem; }
     .pub-year-num { position: static; font-size: 2.1rem; }
     .pipe-row { flex-direction: column; padding: 0; }
@@ -1591,6 +1657,48 @@
   </footer>
 </div>
 
+<!-- ════ MONITORS PAGE (lab members only; opened from Lab Links) ════ -->
+<div class="page" id="page-monitors">
+  <div class="page-header">
+    <h1>Monitors</h1>
+    <p>Live progress of lab analysis pipelines, sent from the lab's computers.</p>
+  </div>
+  <div class="monitors-section">
+    <a class="mon-back" href="#links" onclick="showPage('links'); return false;">← Back to Lab Links</a>
+    <div id="monitors-locked" hidden>
+      <form class="lock-card" id="mon-lock-form" autocomplete="off">
+        <div class="lock-icon">🔒</div>
+        <h3>Lab Members Only</h3>
+        <p>Enter the lab password to view the monitors.</p>
+        <div class="lock-row">
+          <input type="password" id="mon-lock-pw" placeholder="Password" aria-label="Lab password">
+          <button type="submit" class="apply-btn" id="mon-lock-btn">Unlock</button>
+        </div>
+        <p class="lock-error" id="mon-lock-error" role="alert"></p>
+      </form>
+    </div>
+    <div id="monitors-content" hidden>
+      <div class="mon-list" id="mon-list"></div>
+      <div id="mon-view"></div>
+      <div class="mon-foot">
+        <span id="mon-updated"></span>
+        <span class="view-toggle" role="group" aria-label="Display style">
+          <button type="button" data-view="dos">Retro DOS</button><button type="button" data-view="dash">Dashboard</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">Jones Lab</div>
+    <div class="footer-text">Vanderbilt University · 418 Preston Research Building · Nashville, TN 37232</div>
+    <div class="footer-links">
+      <a href="#home" onclick="showPage('home'); return false;">Home</a>
+      <a href="#links" onclick="showPage('links'); return false;">Lab Links</a>
+    </div>
+  </footer>
+</div>
+
 <!-- ════ LAB LINKS PAGE ════ -->
 <div class="page" id="page-links">
   <div class="page-header">
@@ -1765,11 +1873,13 @@
   /* ── LAB LINKS LOCK ──
      The links are stored encrypted below; they only exist in readable form after the right password is entered.
      To change links or the password, use lab_links_encrypt.html and replace this whole line. */
-  const LAB_LINKS_LOCKED = {"v":1,"iter":250000,"salt":"Qlye5Kxsncjd3IJLcqYGyg==","iv":"Pk/h0SSdreMCQqVc","ct":"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"};
+  const LAB_LINKS_LOCKED = {"v":1,"iter":250000,"salt":"y4WQIbTpoxYsMcq68/WxtQ==","iv":"3BvPZ/jzQgjJfOwn","ct":"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"};
   const UNLOCK_KEY = 'jl_links_pw';
 
-  async function decryptLinks(password) {
-    const d = LAB_LINKS_LOCKED, enc = new TextEncoder();
+  async function decryptLinks(password) { return decryptBlob(LAB_LINKS_LOCKED, password); }
+
+  async function decryptBlob(d, password) {
+    const enc = new TextEncoder();
     const bytes = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
     const base = await crypto.subtle.importKey('raw', enc.encode(password), 'PBKDF2', false, ['deriveKey']);
     const key = await crypto.subtle.deriveKey(
@@ -1800,8 +1910,185 @@
     btn.disabled = false; btn.textContent = 'Unlock';
   }
 
+  /* ── MONITORS ──
+     Each monitor is an encrypted status file that a lab computer (the "bridge") uploads every minute
+     to the jones-lab-status repository. To add a monitor, add a line here and run a bridge for it. */
+  const STATUS_API = 'https://api.github.com/repos/xktz89/jones-lab-status/contents/monitors/';
+  const MONITORS = [
+    { id: 'htr-model-tests', title: 'HTR Model Tests', icon: '▣' },
+  ];
+  const MON_POLL_MS = 120000;     // GitHub allows ~60 unsigned requests/hour per visitor
+  const BRIDGE_STALE_MIN = 5;     // bridge sends every minute; older than this = bridge offline
+  const PIPE_STALE_MIN = 15;      // same rule as htr_monitor.py
+  let monCurrent = MONITORS[0].id, monData = {}, monErr = {}, monTimer = null, monTick = null, monBlink = true, monBackoffUntil = 0;
+  // DOS view by default; phones start on the dashboard (the DOS screen is 78 characters wide)
+  let monView = window.innerWidth < 700 ? 'dash' : 'dos';
+  try { monView = localStorage.getItem('jl_mon_view') || monView; } catch (e) {}
+
+  const monPw = () => { try { return sessionStorage.getItem(UNLOCK_KEY); } catch (e) { return null; } };
+  const escH = s => String(s ?? '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+
+  function monAges(d) {
+    const bridge = Math.max(0, (Date.now() - Date.parse(d.sent_utc)) / 60000);
+    const pipe = d.status_age_min == null ? null : d.status_age_min + bridge;
+    return { bridge, pipe };
+  }
+  function monHealth(d) {   // -> { ok, text, short }
+    const a = monAges(d);
+    if (a.bridge > BRIDGE_STALE_MIN) return { ok: false, text: 'BRIDGE OFFLINE -- NO UPDATE FOR ' + Math.round(a.bridge) + ' MIN', short: 'Bridge offline — no update for ' + Math.round(a.bridge) + ' min' };
+    if (!d.nas_found) return { ok: false, text: 'BRIDGE CANNOT SEE THE NAS', short: 'Bridge cannot see the NAS' };
+    if (a.pipe == null) return { ok: false, text: 'NO SIGNAL', short: 'No signal from the pipeline' };
+    if (a.pipe > PIPE_STALE_MIN) return { ok: false, text: '!! NO HEARTBEAT FOR ' + Math.round(a.pipe) + ' MIN -- CHECK THE PC !!', short: 'No heartbeat for ' + Math.round(a.pipe) + ' min — check the PC' };
+    return { ok: true, text: 'HEARTBEAT OK (' + Math.round(a.pipe) + ' MIN AGO)', short: 'Running · ' + escH((d.progress_eta || '').split('|')[0].trim()) + ' complete' };
+  }
+
+  // Retro DOS view: same layout as htr_monitor.py
+  const MW = 78;
+  const mpad = (s, n) => (String(s) + ' '.repeat(n)).slice(0, n), mrpad = (s, n) => (' '.repeat(n) + s).slice(-n);
+  const mbar = (n, t, w) => { const f = t ? Math.round(w * Math.min(n, t) / t) : 0; return '█'.repeat(f) + '░'.repeat(w - f); };
+  function mbox(lines, title) {
+    let top = '╔' + '═'.repeat(MW - 2) + '╗';
+    if (title) { const tt = ' ' + title + ' '; top = '╔══' + tt + '═'.repeat(MW - 4 - tt.length) + '╗'; }
+    return [top, ...lines.map(l => '║ ' + mpad(l, MW - 4) + ' ║'), '╚' + '═'.repeat(MW - 2) + '╝'];
+  }
+  function dosView(d) {
+    const h = monHealth(d), T = d.totals;
+    const now = new Date().toLocaleString('en-US', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).replace(/,/g, '').toUpperCase();
+    const head = (d.title || 'MONITOR').toUpperCase();
+    const L = [];
+    L.push(...mbox([mpad(head, MW - 4 - now.length) + now, '§STATUS : ' + h.text, 'STAGE  : ' + (d.stage || '?'),
+      'PROGRESS: ' + (d.progress_eta || '?').replace(/\s+/g, ' '), 'PROBLEMS: ' + (d.problems ?? '?') + '   LAST: ' + (d.last_problem || '?')], 'SYSTEM'));
+    L.push(...mbox(['TRAIN  [' + mbar(T.train, T.total, 40) + '] ' + mrpad(T.train, 3) + '/' + T.total,
+      'SWEEP  [' + mbar(T.sweep, T.total, 40) + '] ' + mrpad(T.sweep, 3) + '/' + T.total + '   <- VALIDATION',
+      'PERMIMP[' + mbar(T.pi, T.total, 40) + '] ' + mrpad(T.pi, 3) + '/' + T.total,
+      'METRICS: ' + (d.metrics_started ? 'COMPUTED -> pipeline_results\\work\\metrics' : 'WAITING FOR ALL SWEEPS'),
+      d.plan ? d.plan.already_done + ' OF ' + d.plan.steps + ' STEPS DONE BEFORE THIS RUN' : ''].filter(Boolean), 'OVERALL'));
+    const hdr = 'CONDITION        ' + d.grid[0].cells.map(c => mrpad(c.size + 'HTR', 9)).join('');
+    const rows = [hdr, '-'.repeat(hdr.length)];
+    d.grid.forEach(g => rows.push(mpad(mpad(String(g.cond), 4) + g.name, 17) + g.cells.map(c => mrpad('■'.repeat(c.swept) + '□'.repeat(c.trained - c.swept) + '·'.repeat(3 - c.trained), 9)).join('')));
+    rows.push('', '■ = SWEPT (VALIDATED)   □ = TRAINED   · = PENDING      (3 SEEDS PER CELL)');
+    L.push(...mbox(rows, 'MODELS'));
+    L.push(...mbox(d.latest_models.length ? d.latest_models.map(x => x.time + '  SHUFF' + mpad(String(x.cond), 3) + ' ' + mrpad(x.size, 3) + 'HTR SEED' + x.seed + '  SIMBA TEST F1 = ' + x.f1) : ['(NO MODELS YET)'], 'LATEST MODELS'));
+    L.push(...mbox(d.zeroshot.map(z => mpad(z.model, 10) + ' ' + z.stage + (z.progress ? ' | ' + z.progress.replace(/\s+/g, ' ') : '')), 'ZERO-SHOT DLC'));
+    L.push(...mbox(d.log_tail.length ? d.log_tail : ['(NO LOG)'], 'LOG TAIL'));
+    let out = escH(L.join('\n'));
+    out = out.replace(/║ §(STATUS : [^║]*)/, (s, inner) => (inner += ' ', '║ ') + (!h.ok ? (monBlink ? '<span class="alarm">' + inner + '</span>' : ' '.repeat(inner.length)) : '<span class="hi">' + inner + '</span>'));
+    return '<div class="crt"><pre>' + out + '\nC:\\&gt; <span class="cursor">_</span></pre></div>';
+  }
+
+  // Dashboard view: site style
+  function dashView(d) {
+    const h = monHealth(d), T = d.totals;
+    const bar = (label, n, tot, cls, right) => `<div class="prog"><div class="prog-top"><span>${label}</span><span>${right || n + ' / ' + tot}</span></div><div class="track"><div class="fill ${cls || ''}" style="width:${tot ? 100 * Math.min(n, tot) / tot : 0}%"></div></div></div>`;
+    const pct = +(((d.progress_eta || '').match(/([\d.]+)%/) || [, '0'])[1]);
+    const pips = c => `<span class="pips">${[0, 1, 2].map(i => `<span class="pip ${i < c.swept ? 's' : i < c.trained ? 't' : ''}"></span>`).join('')}</span>`;
+    return `<div class="dash">
+      <div class="dash-head"><div><h3>${escH(d.title)}</h3><div class="run">${escH(d.run || '')}</div></div>
+        <span class="pill ${h.ok ? 'ok' : 'bad'}">${h.ok ? '● ' + escH(h.text.toLowerCase().replace('heartbeat ok', 'Running · heartbeat')) : '⚠ ' + escH(h.short)}</span></div>
+      <div class="dash-meta">
+        <div class="meta"><div class="meta-l">Stage</div><div class="meta-v">${escH(d.stage)}</div></div>
+        <div class="meta"><div class="meta-l">Progress / ETA</div><div class="meta-v">${escH((d.progress_eta || '').replace(/\s+/g, ' '))}</div></div>
+        <div class="meta"><div class="meta-l">Started</div><div class="meta-v">${escH(d.started)}</div></div>
+        <div class="meta"><div class="meta-l">Problems</div><div class="meta-v">${escH(d.problems)} · last: ${escH(d.last_problem)}</div></div></div>
+      <div class="dash-body">
+        <div><div class="panel-t">Overall</div>
+          ${bar('Whole run', pct, 100, 'green', pct + '%')}${bar('Trained', T.train, T.total)}${bar('Swept (validated)', T.sweep, T.total)}${bar('Permutation importance', T.pi, T.total)}
+          <p class="note">Metrics: ${d.metrics_started ? 'computed → pipeline_results\\work\\metrics' : 'waiting for all sweeps'}${d.plan ? ' · ' + d.plan.already_done + ' of ' + d.plan.steps + ' steps done before this run' : ''}</p>
+          <div class="panel-t" style="margin-top:1.75rem">Latest models</div>
+          ${d.latest_models.length ? d.latest_models.map(x => `<div class="list-row"><span>Shuffle ${x.cond} · ${x.size} HTR · seed ${x.seed}</span><span>F1 ${escH(x.f1)}</span></div>`).join('') : '<p class="empty">No models finished yet.</p>'}
+          <div class="panel-t" style="margin-top:1.75rem">Zero-shot DLC</div>
+          ${d.zeroshot.map(z => `<div class="list-row"><span>${escH(z.model)}</span><span style="color:var(--text-muted)">${escH(z.stage)}${z.progress ? ' · ' + escH(z.progress.replace(/\s+/g, ' ')) : ''}</span></div>`).join('')}
+        </div>
+        <div><div class="panel-t">Models · 3 seeds per cell</div>
+          <table class="mgrid"><tr><th>Condition</th>${d.grid[0].cells.map(c => `<th>${c.size} HTR</th>`).join('')}</tr>
+          ${d.grid.map(g => `<tr><td><small>${g.cond}</small>${escH(g.name)}</td>${g.cells.map(c => `<td>${pips(c)}</td>`).join('')}</tr>`).join('')}</table>
+          <div class="legend"><span><span class="pip s"></span>Swept (validated)</span><span><span class="pip t"></span>Trained</span><span><span class="pip"></span>Pending</span></div>
+        </div>
+        <div class="logbox">${d.log_tail.map(l => escH(l).replace(/^(&gt;&gt;&gt; STAGE: .*)$/, '<b>$1</b>')).join('\n')}</div>
+      </div></div>`;
+  }
+
+  function renderMonitors() {
+    const list = document.getElementById('mon-list');
+    list.innerHTML = MONITORS.map(m => {
+      const d = monData[m.id], h = d ? monHealth(d) : null;
+      const sub = d ? `<span class="mon-dot ${h.ok ? 'ok' : 'bad'}"></span>${h.ok ? h.short : escH(h.short)}` : monErr[m.id] ? `<span class="mon-dot"></span>${escH(monErr[m.id])}` : '<span class="mon-dot"></span>Loading…';
+      return `<button type="button" class="mon-card ${m.id === monCurrent ? 'on' : ''}" data-mon="${m.id}"><span class="mon-icon">${m.icon}</span><span><span class="mon-title">${escH(m.title)}</span><span class="mon-sub" style="display:block">${sub}</span></span></button>`;
+    }).join('');
+    const d = monData[monCurrent], view = document.getElementById('mon-view');
+    if (d) view.innerHTML = monView === 'dash' ? dashView(d) : dosView(d);
+    else view.innerHTML = `<div class="mon-msg">${monErr[monCurrent] ? '<b>' + escH(monErr[monCurrent]) + '</b><br>' : '<b>Loading…</b><br>'}If this is a new monitor, it appears once the bridge on the lab PC sends its first update.</div>`;
+    document.querySelectorAll('.view-toggle button').forEach(b => b.classList.toggle('on', b.dataset.view === monView));
+    const upd = document.getElementById('mon-updated');
+    upd.textContent = d ? 'Last update from the lab PC: ' + (monAges(d).bridge < 1 ? 'less than a minute ago' : Math.round(monAges(d).bridge) + ' min ago') + ' · checks for new data every 2 minutes' : '';
+  }
+
+  async function fetchMonitor(id) {
+    if (Date.now() < monBackoffUntil) return;
+    try {
+      const r = await fetch(STATUS_API + id + '.json', { headers: { Accept: 'application/vnd.github.raw+json' }, cache: 'no-store' });
+      if (r.status === 404) { monErr[id] = 'Waiting for the first update from the lab PC'; delete monData[id]; return; }
+      if (r.status === 403 || r.status === 429) { monBackoffUntil = Date.now() + 5 * 60000; monErr[id] = 'GitHub request limit reached — retrying in a few minutes'; return; }
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const pw = monPw(); if (!pw) return;
+      monData[id] = JSON.parse(await decryptBlob(await r.json(), pw));
+      delete monErr[id];
+    } catch (e) {
+      if (!monData[id]) monErr[id] = 'Could not load this monitor right now';
+    }
+  }
+
+  async function pollMonitors() {
+    await Promise.all(MONITORS.map(m => fetchMonitor(m.id)));
+    renderMonitors();
+  }
+
+  function stopMonitorPolling() { clearInterval(monTimer); clearInterval(monTick); monTimer = monTick = null; }
+
+  async function openMonitors() {
+    const pw = monPw();
+    let ok = false;
+    if (pw) { try { await decryptLinks(pw); ok = true; } catch (e) {} }
+    document.getElementById('monitors-locked').hidden = ok;
+    document.getElementById('monitors-content').hidden = !ok;
+    if (!ok) { setTimeout(() => document.getElementById('mon-lock-pw').focus({ preventScroll: true }), 300); return; }
+    renderMonitors();
+    stopMonitorPolling();
+    pollMonitors();
+    monTimer = setInterval(() => { if (!document.hidden) pollMonitors(); }, MON_POLL_MS);
+    monTick = setInterval(() => { monBlink = !monBlink; if (monData[monCurrent]) renderMonitors(); }, 1000);
+  }
+
+  document.getElementById('mon-list').addEventListener('click', e => {
+    const c = e.target.closest('[data-mon]'); if (c) { monCurrent = c.dataset.mon; renderMonitors(); }
+  });
+  document.querySelector('.view-toggle').addEventListener('click', e => {
+    const b = e.target.closest('[data-view]'); if (!b) return;
+    monView = b.dataset.view; try { localStorage.setItem('jl_mon_view', monView); } catch (x) {}
+    renderMonitors();
+  });
+  document.getElementById('mon-lock-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const pw = document.getElementById('mon-lock-pw').value, err = document.getElementById('mon-lock-error');
+    if (!pw) return;
+    try {
+      await decryptLinks(pw);
+      try { sessionStorage.setItem(UNLOCK_KEY, pw); } catch (x) {}
+      err.textContent = '';
+      unlockLinks(pw, true);   // unlock Lab Links too
+      openMonitors();
+    } catch (x) {
+      err.textContent = 'Incorrect password. Please try again.';
+      document.getElementById('mon-lock-pw').select();
+    }
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && document.getElementById('page-monitors').classList.contains('active') && monTimer) pollMonitors();
+  });
+
   function lockLinks() {
     try { sessionStorage.removeItem(UNLOCK_KEY); } catch (e) {}
+    monData = {};
     document.getElementById('links-content').innerHTML = '';
     document.getElementById('links-content').hidden = true;
     document.getElementById('links-locked').hidden = false;
@@ -1872,6 +2159,7 @@
     publications: 'Publications — Jones Lab',
     join: 'Join the Lab — Jones Lab',
     links: 'Lab Links — Jones Lab',
+    monitors: 'Monitors — Jones Lab',
   };
   const pageFromHash = () => { const h = location.hash.slice(1); return h in PAGE_TITLES ? h : 'home'; };
 
@@ -1887,6 +2175,7 @@
     window.scrollTo({ top: 0, behavior: opts.fromHistory ? 'auto' : 'smooth' });
     document.querySelector('.nav-links').classList.remove('open');
     if (name === 'pipeline') placePipeFlag();
+    if (name === 'monitors') openMonitors(); else stopMonitorPolling();
     if (name === 'links' && !document.getElementById('links-locked').hidden) setTimeout(() => document.getElementById('lock-pw').focus({ preventScroll: true }), 300);
   }
 
