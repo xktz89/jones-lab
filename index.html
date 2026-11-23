@@ -240,7 +240,7 @@
   }
 
   .hero-stats {
-    position: absolute; bottom: 3rem; right: 4rem;
+    position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);   /* centered under the rings */
     display: flex; gap: 2.5rem;
   }
 
@@ -1158,10 +1158,6 @@
         <div class="stat">
           <span class="stat-num" id="stat-members">…</span>
           <span class="stat-label">Lab Members</span>
-        </div>
-        <div class="stat">
-          <span class="stat-num">3</span>
-          <span class="stat-label">Active Grants</span>
         </div>
       </div>
     </div>
